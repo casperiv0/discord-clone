@@ -1,5 +1,6 @@
 import { ChannelsList } from "components/channel-list/ChannelsList";
 import { GuildsList } from "components/guilds-list/GuildsList";
+import { MembersList } from "components/members-list/MembersList";
 import { MessagesList } from "components/messages-list/MessagesList";
 import styles from "./layout.module.scss";
 
@@ -9,6 +10,7 @@ export const AppLayout = () => {
       <GuildsList />
       <ChannelsList />
       <MessagesList />
+      <MembersList />
     </div>
   );
 };

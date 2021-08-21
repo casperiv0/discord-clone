@@ -3,6 +3,14 @@ import { MessageItem } from "components/message/Message";
 import { Message } from "types/Message";
 import styles from "./messages.module.scss";
 
+export const MOCK_USER = {
+  avatar: "https://avatars.githubusercontent.com/u/53900565?v=4",
+  email: "test@test.com",
+  id: "1",
+  username: "CasperTheGhost",
+  tag: 4546,
+};
+
 const MOCK_MESSAGES: Message[] = [
   {
     id: "1",
@@ -10,13 +18,7 @@ const MOCK_MESSAGES: Message[] = [
     channelId: "1",
     components: [],
     content: "Hello world! This is a test.",
-    user: {
-      avatar: null,
-      email: "test@test.com",
-      id: "1",
-      username: "CasperTheGhost",
-      tag: 4546,
-    },
+    user: MOCK_USER,
   },
   {
     id: "2",
@@ -24,13 +26,7 @@ const MOCK_MESSAGES: Message[] = [
     channelId: "1",
     components: [],
     content: "Another Message!",
-    user: {
-      avatar: null,
-      email: "test@test.com",
-      id: "1",
-      username: "CasperTheGhost",
-      tag: 4546,
-    },
+    user: MOCK_USER,
   },
   {
     id: "3",
@@ -38,13 +34,7 @@ const MOCK_MESSAGES: Message[] = [
     channelId: "1",
     components: [],
     content: "Yay!",
-    user: {
-      avatar: null,
-      email: "test@test.com",
-      id: "1",
-      username: "CasperTheGhost",
-      tag: 4546,
-    },
+    user: MOCK_USER,
   },
 ];
 
