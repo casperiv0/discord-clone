@@ -1,0 +1,6 @@
+.messagesList {
+  grid-area: messages-list;
+
+  display: flex;
+  flex-direction: column-reverse;
+}

@@ -1,0 +1,49 @@
+.createMessage {
+  margin: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+
+  padding: 0 1rem;
+  border-radius: 0.3rem;
+
+  background: #40444b;
+
+  form {
+    width: 100%;
+  }
+
+  input {
+    height: 100%;
+    width: 100%;
+
+    outline: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+
+    padding: 0.8rem;
+    background: #40444b;
+
+    &::placeholder {
+      color: #a1a1a1;
+    }
+  }
+}
+
+.filesBtn {
+  width: 1.3rem;
+  height: 1.3rem;
+
+  display: grid;
+  place-items: center;
+
+  font-weight: bold;
+  color: #40444b;
+
+  border-radius: 50%;
+  background: #dcddde;
+  border: none;
+
+  cursor: pointer;
+}
