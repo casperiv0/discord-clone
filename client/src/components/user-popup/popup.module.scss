@@ -6,6 +6,7 @@
   z-index: 1;
   position: absolute;
   top: 0;
+  left: 110%;
 
   background: #18191c;
   border-radius: 0.5rem;
@@ -14,14 +15,6 @@
   width: 15rem;
 
   animation: openPopup 200ms;
-
-  &.left {
-    right: 10% !important;
-  }
-
-  &.right {
-    left: 110%;
-  }
 }
 
 .popupBanner {

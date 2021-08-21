@@ -1,8 +1,8 @@
-import { User } from "types/User";
+import { GuildMember } from "types/Member";
 import styles from "./members.module.scss";
 
 interface Props {
-  member: { user: User; [key: string]: unknown };
+  member: GuildMember;
 }
 
 export const MemberItem = ({ member }: Props) => {

@@ -1,3 +1,5 @@
+import { ChannelHeader } from "components/channel-header/ChannelHeader";
+import { MOCK_CHANNELS } from "components/channel-list/ChannelsList";
 import { CreateMessage } from "components/create-message/CreateMessage";
 import { MessageItem } from "components/message/Message";
 import { Message } from "types/Message";
@@ -40,12 +42,15 @@ const MOCK_MESSAGES: Message[] = [
 
 export const MessagesList = () => {
   return (
-    <div className={styles.messagesList}>
-      <CreateMessage />
+    <>
+      <ChannelHeader channel={MOCK_CHANNELS[1]!} />
+      <div className={styles.messagesList}>
+        <CreateMessage />
 
-      {MOCK_MESSAGES.map((message) => {
-        return <MessageItem key={message.id} message={message} />;
-      })}
-    </div>
+        {MOCK_MESSAGES.map((message) => {
+          return <MessageItem key={message.id} message={message} />;
+        })}
+      </div>
+    </>
   );
 };

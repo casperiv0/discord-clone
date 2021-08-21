@@ -3,13 +3,14 @@ import { Channel } from "types/Channel";
 import { ChannelItem } from "./ChannelItem";
 import styles from "./channels.module.scss";
 
-const MOCK_CHANNELS: Channel[] = [
+export const MOCK_CHANNELS: Channel[] = [
   {
     id: "1",
     name: "General",
     type: "GUILD_CATEGORY",
     parentId: null,
     guildId: "1",
+    topic: null,
   },
   {
     id: "2",
@@ -17,6 +18,7 @@ const MOCK_CHANNELS: Channel[] = [
     parentId: "1",
     type: "GUILD_TEXT",
     guildId: "1",
+    topic: "Hello world",
   },
   {
     id: "3",
@@ -24,6 +26,7 @@ const MOCK_CHANNELS: Channel[] = [
     parentId: "1",
     type: "GUILD_TEXT",
     guildId: "1",
+    topic: null,
   },
 ];
 

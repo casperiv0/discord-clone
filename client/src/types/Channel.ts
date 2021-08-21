@@ -2,6 +2,7 @@ export interface Channel {
   id: string;
   guildId: string;
   name: string;
+  topic: string | null;
 
   parentId: string | null;
   type: ChannelType;
