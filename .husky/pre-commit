@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "\nRunning 'npm run format:quick'"
+
+npm run format:quick

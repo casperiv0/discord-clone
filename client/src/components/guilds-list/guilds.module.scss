@@ -1,0 +1,69 @@
+@import "../../styles/colors";
+
+.dmDivider {
+  width: 50%;
+  height: 2px;
+
+  background: #2d2f32;
+  border-radius: 0.5rem;
+}
+
+.guildsList {
+  grid-area: "guilds-list";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  width: 4.5rem;
+  height: 100vh;
+  padding: 0.5rem 0;
+
+  background: $guildsList;
+}
+
+.guildItem {
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  border-radius: 50%;
+  background: #2f3136;
+
+  height: 3.2rem;
+  width: 3.2rem;
+
+  overflow: hidden;
+  transition: 150ms;
+
+  text-decoration: none;
+  font-size: 1rem;
+  color: white;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+  }
+
+  &:hover {
+    border-radius: 1rem;
+  }
+
+  &.backgroundHover:hover {
+    background: #496eee;
+  }
+
+  &.active {
+    border-radius: 1rem;
+
+    &.backgroundHover {
+      background: #496eee;
+    }
+  }
+}
+
+.guildTooltip {
+  background: #17181b !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
+}

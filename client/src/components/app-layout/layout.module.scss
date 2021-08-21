@@ -1,0 +1,9 @@
+.appLayout {
+  display: grid;
+  grid-template-columns: 4.5rem 15rem auto 10rem;
+  grid-template-areas:
+    "guilds-list channels-list messages-list members-list"
+    "guilds-list channels-list messages-list members-list"
+    "guilds-list channels-list messages-list members-list"
+    "guilds-list channels-list messages-list members-list";
+}
