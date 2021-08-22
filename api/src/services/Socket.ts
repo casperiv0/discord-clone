@@ -1,3 +1,4 @@
+import { Application } from "express";
 import { Server, ServerOptions } from "socket.io";
 import { Event } from "structures/Event";
 import { loadEvents } from "utils/loadEvents";
@@ -12,10 +13,16 @@ export class SocketService {
   private io: Server;
   private events: Map<string, Event> = new Map();
 
-  constructor() {
-    this.io = new Server(SOCKET_OPTIONS);
+  constructor(expressServer: Application) {
+    const port = parseInt(process.env.API_PORT ?? "3030");
 
-    this.listen();
+    this.io = new Server(
+      expressServer.listen(port, () => {
+        console.log("Socket & Server are running.");
+      }),
+      SOCKET_OPTIONS,
+    );
+
     this.init();
   }
 
@@ -27,12 +34,5 @@ export class SocketService {
         socket.on(event.name, event.handle.bind(null, socket));
       });
     });
-  }
-
-  listen() {
-    const port = parseInt(process.env.SOCKET_PORT ?? "3030");
-    this.io.listen(port);
-
-    console.log("Socket was started.");
   }
 }

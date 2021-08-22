@@ -12,6 +12,7 @@ export async function getSessionUser(userId: string): Promise<User | null> {
       createdAt: true,
       email: true,
       id: true,
+      tag: true,
     },
   });
 

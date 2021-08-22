@@ -13,13 +13,13 @@ generator client {
 model User {
   id          String       @id @default(uuid())
   email       String       @unique
-  avatar      String       @unique
+  avatar      String?       @unique
   password    String
   createdAt   DateTime     @default(now())
   name        String
-  tag         String
-  bio         String
-  status      String
+  tag         Int
+  bio         String?
+  status      String?
   connections Connection[]
   messages    Message[]
 }

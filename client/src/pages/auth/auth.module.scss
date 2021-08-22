@@ -1,0 +1,31 @@
+.authContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+  background: #303339;
+}
+
+.authForm {
+  width: 30rem;
+  background: #36393f;
+
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+
+  h1 {
+    font-size: 1.7rem;
+    color: #ffffff;
+    margin-bottom: 0.3rem;
+    user-select: none;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #989b9f;
+    margin-bottom: 1.5rem;
+    user-select: none;
+  }
+}

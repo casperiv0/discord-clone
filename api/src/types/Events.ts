@@ -1,3 +1,4 @@
 export enum Events {
   MESSAGE_CREATE = "MESSAGE_CREATE",
+  JOIN_CHANNEL = "JOIN_CHANNEL",
 }

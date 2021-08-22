@@ -1,5 +1,4 @@
 import { Server, Socket } from "socket.io";
-import { prisma } from "lib/prisma";
 import { Event } from "structures/Event";
 import { Events } from "types/Events";
 import { getSocketSession } from "utils/auth/getSocketSession";
@@ -10,9 +9,9 @@ export interface MessageCreateEventData {
   content: string;
 }
 
-export default class MESSAGE_CREATE extends Event {
+export default class JOIN_CHANNEL extends Event {
   constructor(server: Server) {
-    super(server, Events.MESSAGE_CREATE);
+    super(server, Events.JOIN_CHANNEL);
   }
 
   async handle(socket: Socket, data: MessageCreateEventData) {
@@ -22,17 +21,6 @@ export default class MESSAGE_CREATE extends Event {
 
     const roomName = `${data.guildId}_${data.channelId}`;
 
-    const message = await prisma.message.create({
-      data: {
-        content: data.content,
-        channelId: data.channelId,
-        guildId: data.guildId,
-        userId: user.id,
-      },
-    });
-
-    console.log(message);
-
-    socket.broadcast.to(roomName).emit(Events.MESSAGE_CREATE, { message });
+    await socket.join(roomName);
   }
 }

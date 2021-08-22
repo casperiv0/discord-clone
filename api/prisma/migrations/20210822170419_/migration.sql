@@ -8,13 +8,13 @@ CREATE TYPE "ConnectionType" AS ENUM ('GITHUB', 'TWITTER', 'WEBSITE');
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "avatar" TEXT NOT NULL,
+    "avatar" TEXT,
     "password" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT NOT NULL,
-    "tag" TEXT NOT NULL,
-    "bio" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
+    "tag" INTEGER NOT NULL,
+    "bio" TEXT,
+    "status" TEXT,
 
     PRIMARY KEY ("id")
 );
