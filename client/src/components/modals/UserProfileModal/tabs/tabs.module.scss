@@ -1,0 +1,119 @@
+.tabsContainer {
+  padding: 0.5rem 1rem;
+  padding-bottom: 0;
+
+  display: flex;
+
+  border-bottom: 1px solid #262729;
+}
+
+.errorText {
+  display: grid;
+  place-items: center;
+
+  text-transform: uppercase;
+  color: #b9bbbe;
+}
+
+.tabSelector {
+  color: #96989b;
+  font-size: 1rem;
+
+  margin-right: 2rem;
+  padding-bottom: 1rem;
+
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover,
+  &.active {
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+}
+
+.tabs {
+  max-height: 13.5rem;
+  overflow: auto;
+}
+
+.tab {
+  min-height: 13.5rem;
+
+  padding: 0.5rem 1rem;
+  padding-top: 1.5rem;
+}
+
+.connections {
+  margin-top: 1rem;
+  padding-bottom: 0.5rem;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.connection {
+  padding: 0.8rem;
+  border-radius: 0.3rem;
+
+  border: 1.5px solid #262729;
+
+  color: #ffffff;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & a {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+
+    & svg {
+      transition: 200ms;
+    }
+
+    &:hover svg {
+      fill: #ffffff;
+    }
+  }
+}
+
+.mutualGuilds {
+  display: flex;
+  flex-direction: column;
+}
+
+.guildItem {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+
+  p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+
+    margin-left: 1rem;
+  }
+
+  img {
+    border-radius: 0.6rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  &:hover {
+    background: #212326;
+  }
+}

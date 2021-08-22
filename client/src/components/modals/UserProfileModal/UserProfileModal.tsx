@@ -3,6 +3,11 @@ import Modal from "react-modal";
 import { createModalStyles } from "utils/createModalStyles";
 import { User } from "types/User";
 import styles from "./user.module.scss";
+import tabStyles from "./tabs/tabs.module.scss";
+import { classes } from "utils/classes";
+import { UserInfoTab } from "./tabs/UserInfo";
+import { MutualFriendsTab } from "./tabs/MutualFriends";
+import { MutualGuildsTab } from "./tabs/MutualGuilds";
 
 interface Props {
   user: User;
@@ -11,7 +16,24 @@ interface Props {
   onClose: () => void;
 }
 
+enum Tabs {
+  USER_PROFILE,
+  ACTIVITY,
+  MUTUAL_SERVERS,
+  MUTUAL_FRIENDS,
+}
+
 export const UserProfileModal = ({ user, isOpen, onClose }: Props) => {
+  const [activeTab, setActiveTab] = React.useState<Tabs>(Tabs.USER_PROFILE);
+
+  function tabStyle(v: number) {
+    return v === activeTab ? tabStyles.active : undefined;
+  }
+
+  React.useEffect(() => {
+    setActiveTab(Tabs.USER_PROFILE);
+  }, [isOpen]);
+
   return (
     <Modal
       style={createModalStyles({
@@ -38,7 +60,56 @@ export const UserProfileModal = ({ user, isOpen, onClose }: Props) => {
         </p>
       </div>
 
-      {/* todo: add tabs */}
+      <div className={tabStyles.tabsContainer}>
+        <button
+          onClick={() => setActiveTab(Tabs.USER_PROFILE)}
+          className={classes(tabStyles.tabSelector, tabStyle(Tabs.USER_PROFILE))}
+        >
+          User Info
+        </button>
+        <button
+          onClick={() => setActiveTab(Tabs.ACTIVITY)}
+          className={classes(tabStyles.tabSelector, tabStyle(Tabs.ACTIVITY))}
+        >
+          Activity
+        </button>
+        <button
+          onClick={() => setActiveTab(Tabs.MUTUAL_SERVERS)}
+          className={classes(tabStyles.tabSelector, tabStyle(Tabs.MUTUAL_SERVERS))}
+        >
+          Mutual Server
+        </button>
+        <button
+          onClick={() => setActiveTab(Tabs.MUTUAL_FRIENDS)}
+          className={classes(tabStyles.tabSelector, tabStyle(Tabs.MUTUAL_FRIENDS))}
+        >
+          Mutual Friends
+        </button>
+      </div>
+
+      <div className={tabStyles.tabs}>
+        <RenderTabs activeTab={activeTab} />
+      </div>
     </Modal>
   );
+};
+
+const RenderTabs = ({ activeTab }: { activeTab: number }) => {
+  switch (activeTab) {
+    case Tabs.ACTIVITY: {
+      return <div className={tabStyles.tab}>it&apos;s empty here.</div>;
+    }
+    case Tabs.MUTUAL_FRIENDS: {
+      return <MutualFriendsTab />;
+    }
+    case Tabs.MUTUAL_SERVERS: {
+      return <MutualGuildsTab />;
+    }
+    case Tabs.USER_PROFILE: {
+      return <UserInfoTab />;
+    }
+    default: {
+      return null;
+    }
+  }
 };
