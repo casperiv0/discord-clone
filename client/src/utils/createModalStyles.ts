@@ -22,7 +22,7 @@ export function createModalStyles(styles: Modal.Styles = {}): Modal.Styles {
     },
     overlay: {
       zIndex: 10,
-      background: "rgba(0, 0, 0, 0.5)",
+      background: "rgba(0, 0, 0, 0.7)",
       ...styles.overlay,
     },
   };

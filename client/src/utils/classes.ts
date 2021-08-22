@@ -1,3 +1,3 @@
 export function classes(...classes: (boolean | string | undefined)[]) {
-  return classes.join(" ");
+  return classes.filter(Boolean).join(" ");
 }

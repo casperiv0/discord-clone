@@ -6,15 +6,16 @@ import { useChannelsStore } from "lib/state/channelsState";
 import { Channel } from "types/Channel";
 import { useGuildStore } from "lib/state/guildsState";
 import { parseChannelName } from "utils/channel/parseChannelName";
+import { useModalStore } from "lib/state/modalState";
+import { Modals } from "types/Modals";
 
 interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-
   parentId: string | null;
 }
 
-export const CreateChannelModal = ({ isOpen, onClose, parentId }: Props) => {
+export const CreateChannelModal = ({ parentId }: Props) => {
+  const { isOpen, closeModal } = useModalStore();
+
   const [name, setName] = React.useState("");
   const channelStore = useChannelsStore();
   const currentGuild = useGuildStore((s) => s.currentGuild);
@@ -35,14 +36,14 @@ export const CreateChannelModal = ({ isOpen, onClose, parentId }: Props) => {
     channelStore.setChannels([...channelStore.channels, channel]);
 
     setName("");
-    onClose();
+    closeModal(Modals.CREATE_CHANNEL);
   }
 
   return (
     <Modal
       style={createModalStyles({ content: { padding: "0", width: "25rem" } })}
-      isOpen={isOpen}
-      onRequestClose={onClose}
+      isOpen={isOpen(Modals.CREATE_CHANNEL)}
+      onRequestClose={() => closeModal(Modals.CREATE_CHANNEL)}
     >
       <form onSubmit={onSubmit}>
         <div style={{ padding: "1rem" }}>
@@ -51,6 +52,7 @@ export const CreateChannelModal = ({ isOpen, onClose, parentId }: Props) => {
           <div className={styles.formGroup}>
             <label htmlFor="channel_name">Channel name</label>
             <input
+              autoFocus
               id="channel_name"
               className={styles.formInput}
               value={name}

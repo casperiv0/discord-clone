@@ -21,7 +21,74 @@
     color: #ffffff;
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     background: #34373c;
+  }
+}
+
+.guildDropdown {
+  z-index: 1;
+  position: absolute;
+  top: 3.5rem;
+  width: 14rem;
+
+  padding: 0.3rem;
+  background: #18191c;
+  border-radius: 0.3rem;
+
+  display: flex;
+  flex-direction: column;
+
+  transform-origin: top center;
+  animation: openDropdown 200ms;
+
+  box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.5);
+}
+
+.dropdownDivider {
+  width: 95%;
+  height: 1.5px;
+  align-self: center;
+  margin: 0.2rem 0;
+
+  background: #262729;
+}
+
+.dropdownItem {
+  padding: 0.4rem;
+  margin-bottom: 0.2rem;
+
+  font-weight: 600;
+  font-size: 1rem;
+  color: #b6b9bd;
+
+  cursor: pointer;
+
+  border-radius: 0.2rem;
+  border: none;
+  background: none;
+  text-align: start;
+
+  &:hover {
+    color: #ffffff;
+    background: #3b59c1;
+  }
+
+  &.invite {
+    color: #8ea0f4;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+@keyframes openDropdown {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
   }
 }

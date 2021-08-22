@@ -1,0 +1,51 @@
+.bannerContainer {
+  position: relative;
+
+  width: 100%;
+  height: 10rem;
+}
+
+.banner {
+  width: 100%;
+  height: 7rem;
+  background: #38404b;
+}
+
+.bannerAvatar {
+  position: absolute;
+  top: 22%;
+  left: 1rem;
+
+  width: 8rem;
+  height: 8rem;
+
+  background: #18191c;
+  border: 6px solid #18191c;
+  border-radius: 50%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+}
+
+.userInfo {
+  padding: 0.5rem 1rem;
+  padding-bottom: 5rem;
+
+  h1 {
+    font-weight: 600;
+    font-size: 1.7rem;
+    color: #ffffff;
+  }
+
+  .tag {
+    color: #96989b;
+  }
+
+  .status {
+    margin-top: 1rem;
+    color: #96989b;
+  }
+}

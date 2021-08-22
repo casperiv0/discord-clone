@@ -8,6 +8,8 @@ import { isChannelActive } from "utils/channel/isChannelActive";
 import styles from "./channels.module.scss";
 import { PlusIcon } from "src/icons/Plus";
 import { CreateChannelModal } from "components/modals/CreateChannelModal";
+import { useModalStore } from "lib/state/modalState";
+import { Modals } from "types/Modals";
 
 interface Props {
   channel: Channel;
@@ -39,7 +41,7 @@ const TextChannel = ({ channel }: Props) => {
 };
 
 const GuildCategory = ({ channel }: Props) => {
-  const [isOpen, setOpen] = React.useState(false);
+  const openModal = useModalStore((s) => s.openModal);
 
   return (
     <div className={classes(styles.channel, styles.categoryChannel)}>
@@ -49,7 +51,7 @@ const GuildCategory = ({ channel }: Props) => {
         data-tip
         data-for={`create-channel-${channel.id}-tooltip`}
         className={styles.addChannel}
-        onClick={() => setOpen(true)}
+        onClick={() => openModal(Modals.CREATE_CHANNEL)}
       >
         <PlusIcon width="12px" height="12px" />
       </button>
@@ -60,15 +62,15 @@ const GuildCategory = ({ channel }: Props) => {
         id={`create-channel-${channel.id}-tooltip`}
         className={styles.channelTooltip}
         arrowColor="#17181b"
+        overridePosition={({ top, left }) => ({
+          top: top + 15,
+          left,
+        })}
       >
         <span>Create channel</span>
       </ReactTooltip>
 
-      <CreateChannelModal
-        parentId={channel.type === "GUILD_CATEGORY" ? channel.id : null}
-        isOpen={isOpen}
-        onClose={() => setOpen(false)}
-      />
+      <CreateChannelModal parentId={channel.type === "GUILD_CATEGORY" ? channel.id : null} />
     </div>
   );
 };
