@@ -1,9 +1,21 @@
 .messageContainer {
   display: flex;
 
-  padding: 0.5rem 1rem ;
+  padding: 0.5rem 1rem;
   margin: 0.5rem 0;
   color: #ffffff;
+
+
+  &.oneMessage {
+    padding: 0;
+    padding-left: 4.5rem;
+    margin: 0;
+  }
+
+  &.last {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
 
   &:hover {
     background: #32353b;
@@ -46,4 +58,9 @@
   & p {
     font-size: 1rem;
   }
+}
+
+.oneMessage {
+  padding: 0.2rem 0;
+  margin: 0;
 }

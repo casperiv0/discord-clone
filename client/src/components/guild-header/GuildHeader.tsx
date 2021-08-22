@@ -6,6 +6,7 @@ import styles from "./guild.module.scss";
 import { classes } from "utils/classes";
 import { useModalStore } from "lib/state/modalState";
 import { Modals } from "types/Modals";
+import { CreateCategoryModal } from "components/modals/CreateCategoryModal";
 
 export const GuildHeader = () => {
   const openModal = useModalStore((s) => s.openModal);
@@ -40,9 +41,16 @@ export const GuildHeader = () => {
           <button onClick={() => handleOpen(Modals.CREATE_CHANNEL)} className={styles.dropdownItem}>
             Create Channel
           </button>
-          <button className={styles.dropdownItem}>Create Category</button>
+          <button
+            onClick={() => handleOpen(Modals.CREATE_CATEGORY)}
+            className={styles.dropdownItem}
+          >
+            Create Category
+          </button>
         </div>
       ) : null}
+
+      <CreateCategoryModal />
     </>
   );
 };

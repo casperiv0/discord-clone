@@ -15,6 +15,15 @@ export const MOCK_USER = {
   tag: 4546,
 };
 
+export const MOCK_USER_2 = {
+  avatar:
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.wH8PXFtdeLjkA520lhSsEQHaEK%26pid%3DApi&f=1",
+  email: "test@test2.com",
+  id: "2",
+  username: "Ghost",
+  tag: 5005,
+};
+
 export const MOCK_MESSAGES: Message[] = [
   {
     id: "1",
@@ -40,6 +49,30 @@ export const MOCK_MESSAGES: Message[] = [
     content: "Yay!",
     user: MOCK_USER,
   },
+  {
+    id: "4",
+    guildId: "1",
+    channelId: "2",
+    components: [],
+    content: "Hello world",
+    user: MOCK_USER_2,
+  },
+  {
+    id: "5",
+    guildId: "1",
+    channelId: "2",
+    components: [],
+    content: "Super cool!",
+    user: MOCK_USER_2,
+  },
+  {
+    id: "6",
+    guildId: "1",
+    channelId: "2",
+    components: [],
+    content: "Yes, indeed!",
+    user: MOCK_USER,
+  },
 ];
 
 export const MessagesList = () => {
@@ -52,8 +85,8 @@ export const MessagesList = () => {
         <CreateMessage />
 
         <div>
-          {messages.map((message) => {
-            return <MessageItem key={message.id} message={message} />;
+          {messages.map((message, idx) => {
+            return <MessageItem key={message.id} idx={idx} message={message} />;
           })}
         </div>
 
