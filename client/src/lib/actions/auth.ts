@@ -1,6 +1,7 @@
 import { request } from "lib/fetch";
+import { User } from "types/User";
 
-export async function verifyAuth(cookie?: string) {
+export async function verifyAuth(cookie?: string): Promise<User | null> {
   try {
     const res = await request("/auth/user", "POST", { cookie });
 

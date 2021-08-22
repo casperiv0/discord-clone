@@ -1,7 +1,7 @@
 import { request } from "lib/fetch";
 import { Channel } from "types/Channel";
 
-export async function getChannelsForGuild(guildId: string, cookie?: string) {
+export async function getChannelsForGuild(guildId: string, cookie?: string): Promise<Channel[]> {
   try {
     const res = await request(`/guilds/${guildId}/channels`, "GET", { cookie });
 
@@ -11,19 +11,24 @@ export async function getChannelsForGuild(guildId: string, cookie?: string) {
   }
 }
 
-export async function getChannelById(id: string, cookie?: string) {
+export async function getChannelById(id: string, cookie?: string): Promise<Channel | null> {
   try {
     const res = await request(`/channels/${id}`, "GET", { cookie });
 
-    return res.data.channel ?? [];
+    return res.data.channel ?? null;
   } catch (e) {
-    return [];
+    return null;
   }
 }
 
 type CreateChannelData = Pick<Channel, "name" | "type" | "guildId" | "parentId">;
 
-export async function createChannel({ name, type, guildId, parentId }: CreateChannelData) {
+export async function createChannel({
+  name,
+  type,
+  guildId,
+  parentId,
+}: CreateChannelData): Promise<Channel | null> {
   try {
     const res = await request(`/channels/${guildId}`, "POST", { name, type, parentId });
 

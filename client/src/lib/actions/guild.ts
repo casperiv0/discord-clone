@@ -1,6 +1,7 @@
 import { request } from "lib/fetch";
+import { Guild } from "types/Guild";
 
-export async function getGuilds(cookie?: string) {
+export async function getGuilds(cookie?: string): Promise<Guild[]> {
   try {
     const res = await request("/guilds/@me", "GET", { cookie });
 
@@ -10,7 +11,7 @@ export async function getGuilds(cookie?: string) {
   }
 }
 
-export async function getGuild(guildId: string, cookie?: string) {
+export async function getGuild(guildId: string, cookie?: string): Promise<Guild | null> {
   try {
     const res = await request(`/guilds/${guildId}`, "GET", { cookie });
 
@@ -20,7 +21,7 @@ export async function getGuild(guildId: string, cookie?: string) {
   }
 }
 
-export async function createGuild(name: string) {
+export async function createGuild(name: string): Promise<Guild | null> {
   try {
     const res = await request("/guilds", "POST", { name });
 
