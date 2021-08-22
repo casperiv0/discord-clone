@@ -1,35 +1,31 @@
 import * as React from "react";
-import { useMessagesStore } from "state/messagesState";
 import { PlusIcon } from "icons/Plus";
 import styles from "./message.module.scss";
-import { MOCK_USER } from "components/messages-list/MessagesList";
 import { socket } from "lib/socket";
+import { useGuildStore } from "lib/state/guildsState";
+import { useChannelsStore } from "lib/state/channelsState";
 
 export const CreateMessage = () => {
   const [message, setMessage] = React.useState("");
-  const messagesStore = useMessagesStore();
+  const ref = React.useRef<HTMLInputElement>(null);
+  const currentGuild = useGuildStore((s) => s.currentGuild);
+  const currentChannel = useChannelsStore((s) => s.currentChannel);
+
+  React.useEffect(() => {
+    ref.current?.focus();
+  }, []);
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!message || !currentChannel || !currentGuild) return;
+
     setMessage("");
 
     socket.emit("MESSAGE_CREATE", {
       content: message,
-      channelId: "1",
-      guildId: "1",
+      channelId: currentChannel.id,
+      guildId: currentGuild.id,
     });
-
-    messagesStore.setMessages([
-      ...messagesStore.messages,
-      {
-        user: MOCK_USER,
-        content: message,
-        components: [],
-        id: Math.floor(Math.random() * 10000).toString(),
-        channelId: "1",
-        guildId: "1",
-      },
-    ]);
   }
 
   return (
@@ -40,6 +36,7 @@ export const CreateMessage = () => {
         </button>
         <form onSubmit={onSubmit}>
           <input
+            ref={ref}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Message #general"

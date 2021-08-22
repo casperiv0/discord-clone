@@ -1,8 +1,13 @@
 export interface User {
   id: string;
-  username: string;
   email: string;
-  tag: number;
-
+  username: string;
   avatar: string | null;
+  password: string;
+  createdAt: Date;
+  name: string;
+  tag: number;
+  bio: string | null;
+  status: string | null;
+  guildId: string | null;
 }

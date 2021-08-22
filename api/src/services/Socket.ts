@@ -6,6 +6,7 @@ import { loadEvents } from "utils/loadEvents";
 const SOCKET_OPTIONS: Partial<ServerOptions> = {
   cors: {
     origin: "http://localhost:3000",
+    credentials: true,
   },
 };
 

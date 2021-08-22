@@ -3,6 +3,7 @@ import { prisma } from "lib/prisma";
 import { Event } from "structures/Event";
 import { Events } from "types/Events";
 import { getSocketSession } from "utils/auth/getSocketSession";
+import { userProperties } from "utils/user/userProperties";
 
 export interface MessageCreateEventData {
   guildId: string;
@@ -29,10 +30,13 @@ export default class MESSAGE_CREATE extends Event {
         guildId: data.guildId,
         userId: user.id,
       },
+      include: {
+        user: {
+          select: userProperties(),
+        },
+      },
     });
 
-    console.log(message);
-
-    socket.broadcast.to(roomName).emit(Events.MESSAGE_CREATE, { message });
+    this.server.sockets.to(roomName).emit(Events.MESSAGE_CREATE, message);
   }
 }

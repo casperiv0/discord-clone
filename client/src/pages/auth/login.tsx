@@ -2,13 +2,27 @@ import * as React from "react";
 import Head from "next/head";
 import styles from "./auth.module.scss";
 import form from "styles/form.module.scss";
+import { login } from "lib/actions/auth";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const router = useRouter();
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const data = await login(email, password);
+
+    if (data instanceof Error) {
+      // todo: throw error to user
+      console.log(data);
+    }
+
+    if (data) {
+      router.push("/");
+    }
   }
 
   return (

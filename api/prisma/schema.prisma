@@ -13,7 +13,8 @@ generator client {
 model User {
   id          String       @id @default(uuid())
   email       String       @unique
-  avatar      String?       @unique
+  avatar      String?      @unique
+  username String
   password    String
   createdAt   DateTime     @default(now())
   name        String
@@ -22,14 +23,20 @@ model User {
   status      String?
   connections Connection[]
   messages    Message[]
+  guilds      Guild[]
+  guild       Guild?       @relation("members", fields: [guildId], references: [id])
+  guildId     String?
 }
 
 model Guild {
   id       String    @id @default(uuid())
   name     String
-  icon     String
+  icon     String?
   channels Channel[]
-  messages  Message[]
+  messages Message[]
+  members  User[]    @relation("members")
+  owner    User      @relation(fields: [ownerId], references: [id])
+  ownerId  String
 }
 
 model Message {

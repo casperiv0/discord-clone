@@ -4,7 +4,7 @@
   height: 3rem;
   width: 15rem;
 
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   background: none;
   border: none;
   border-bottom: 1.5px solid #232428;
@@ -17,8 +17,13 @@
   transition: 200ms;
 
   h1 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #ffffff;
+    font-weight: bold;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &:hover,

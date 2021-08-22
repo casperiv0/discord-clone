@@ -1,3 +1,4 @@
+import { useChannelsStore } from "lib/state/channelsState";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import ReactTooltip from "react-tooltip";
@@ -13,8 +14,10 @@ interface Props {
 
 export const GuildItem = ({ guild }: Props) => {
   const router = useRouter();
+  const channels = useChannelsStore((s) => s.channels);
+  const firstTextChannel = channels.find((v) => v.type === "GUILD_TEXT");
 
-  const href = guild.id === "@me" ? "/@me" : `/${guild.id}/${guild.channel_ids[0] ?? "0"}`;
+  const href = guild.id === "@me" ? "/@me" : `/${guild.id}/${firstTextChannel?.id ?? "0"}`;
   const guildInitials = getGuildInitials(guild.name);
   const guildActive = isGuildActive(router.query.guildId as string, guild.id);
 

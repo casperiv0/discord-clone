@@ -2,28 +2,42 @@ import * as React from "react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { AppLayout } from "components/app-layout/AppLayout";
-import { MOCK_CHANNELS } from "components/channel-list/ChannelsList";
 import { useChannelsStore } from "lib/state/channelsState";
 import { Channel as TChannel } from "types/Channel";
-import { MOCK_MESSAGES } from "components/messages-list/MessagesList";
 import { Message } from "types/Message";
 import { useMessagesStore } from "lib/state/messagesState";
-import { MOCK_GUILDS } from "components/guilds-list/GuildsList";
 import { Guild } from "types/Guild";
 import { useGuildStore } from "lib/state/guildsState";
+import { verifyAuth } from "lib/actions/auth";
+import { useAuthStore } from "lib/state/authState";
+import { User } from "types/User";
+import { getGuild, getGuilds } from "lib/actions/guild";
+import { getChannelById, getChannelsForGuild } from "lib/actions/channel";
+import { getMessagesInChannel } from "lib/actions/message";
+import { socket } from "lib/socket";
 
 interface Props {
   channel: TChannel | null;
   guild: Guild | null;
+  user: User | null;
   channels: TChannel[];
   messages: Message[];
+  guilds: Guild[];
 }
 
-export default function Channel({ channel, channels, messages, guild }: Props) {
+export default function Channel({ channel, channels, guilds, messages, guild, user }: Props) {
   const setMessages = useMessagesStore((s) => s.setMessages);
   const setChannel = useChannelsStore((s) => s.setCurrentChannel);
   const setChannels = useChannelsStore((s) => s.setChannels);
   const setGuild = useGuildStore((s) => s.setCurrentGuild);
+  const setGuilds = useGuildStore((s) => s.setGuilds);
+  const setUser = useAuthStore((s) => s.setUser);
+
+  React.useEffect(() => {
+    if (guild && channel) {
+      socket.emit("JOIN_CHANNEL", { guildId: guild.id, channelId: channel.id });
+    }
+  }, [guild, channel]);
 
   React.useEffect(() => {
     setMessages(messages);
@@ -35,13 +49,23 @@ export default function Channel({ channel, channels, messages, guild }: Props) {
     }
 
     setChannels(channels);
-  }, [channel, channels, setChannel, setChannels]);
+  }, [channel, guild, channels, setChannel, setChannels]);
 
   React.useEffect(() => {
     if (guild) {
       setGuild(guild);
     }
-  }, [guild, setGuild]);
+
+    if (guilds) {
+      setGuilds(guilds);
+    }
+  }, [guild, guilds, setGuild, setGuilds]);
+
+  React.useEffect(() => {
+    if (user) {
+      setUser(user);
+    }
+  }, [setUser, user]);
 
   return (
     <>
@@ -53,20 +77,18 @@ export default function Channel({ channel, channels, messages, guild }: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query, req }) => {
+  const cookie = req.headers.cookie;
   const { channelId, guildId } = query;
-
-  const channels = MOCK_CHANNELS.filter((v) => v.guildId === guildId);
-  const channel = MOCK_CHANNELS.find((v) => v.id === channelId && v.guildId === guildId) ?? null;
-  const messages = MOCK_MESSAGES.filter((v) => v.channelId === channelId && v.guildId === guildId);
-  const guild = MOCK_GUILDS.find((v) => v.id === guildId) ?? null;
 
   return {
     props: {
-      channels,
-      channel,
-      messages,
-      guild,
+      user: await verifyAuth(cookie),
+      channels: await getChannelsForGuild(guildId as string, cookie),
+      channel: await getChannelById(channelId as string, cookie),
+      messages: await getMessagesInChannel(guildId as string, channelId as string, cookie),
+      guild: await getGuild(guildId as string, cookie),
+      guilds: await getGuilds(cookie),
     },
   };
 };

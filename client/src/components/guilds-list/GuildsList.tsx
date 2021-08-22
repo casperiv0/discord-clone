@@ -1,50 +1,45 @@
 import * as React from "react";
-import { Guild } from "types/Guild";
+import { useGuildStore } from "lib/state/guildsState";
 import { GuildItem } from "./GuildItem";
 import styles from "./guilds.module.scss";
+import { PlusIcon } from "icons/Plus";
+import { classes } from "utils/classes";
+import { useModalStore } from "lib/state/modalState";
+import { Modals } from "types/Modals";
 
-export const MOCK_GUILDS: Guild[] = [
-  {
-    id: "1",
-    name: "Hello",
-    channel_ids: [],
-    member_ids: [],
-    icon: "https://avatars.githubusercontent.com/u/53900565?v=4",
-  },
-  {
-    id: "2",
-    name: "Second guild",
-    channel_ids: [],
-    member_ids: [],
-    icon: null,
-  },
-  {
-    id: "3",
-    name: "Third guild",
-    channel_ids: [],
-    member_ids: [],
-    icon: null,
-  },
-];
-
-const DM_GUILD: Guild = {
+const DM_GUILD: any = {
   name: "HOME",
   icon: null,
   id: "@me",
-  channel_ids: [],
-  member_ids: [],
 };
 
 export const GuildsList = () => {
+  const guilds = useGuildStore((s) => s.guilds);
+
   return (
     <div className={styles.guildsList}>
       <GuildItem guild={DM_GUILD} />
 
       <div className={styles.dmDivider} />
 
-      {MOCK_GUILDS.map((guild) => (
+      {guilds.map((guild) => (
         <GuildItem key={guild.id} guild={guild} />
       ))}
+
+      <AddGuild />
     </div>
+  );
+};
+
+const AddGuild = () => {
+  const openModal = useModalStore((s) => s.openModal);
+
+  return (
+    <button
+      onClick={() => openModal(Modals.CREATE_GUILD)}
+      className={classes(styles.guildItem, styles.addGuild)}
+    >
+      <PlusIcon fill="#42A562" />
+    </button>
   );
 };

@@ -10,7 +10,7 @@ export async function withAuth(
   next: NextFunction,
 ): Promise<Response | void> {
   try {
-    const cookie = req.cookies[COOKIE_NAME];
+    const cookie = req.cookies[COOKIE_NAME] ?? req.headers["session"];
 
     const userId = await parseJWT(cookie);
     if (!userId) {

@@ -1,4 +1,5 @@
 export enum Modals {
   CREATE_CHANNEL,
   CREATE_CATEGORY,
+  CREATE_GUILD,
 }

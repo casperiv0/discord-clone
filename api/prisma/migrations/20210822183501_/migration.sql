@@ -9,12 +9,14 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "avatar" TEXT,
+    "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT NOT NULL,
     "tag" INTEGER NOT NULL,
     "bio" TEXT,
     "status" TEXT,
+    "guildId" TEXT,
 
     PRIMARY KEY ("id")
 );
@@ -23,7 +25,8 @@ CREATE TABLE "User" (
 CREATE TABLE "Guild" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "icon" TEXT NOT NULL,
+    "icon" TEXT,
+    "ownerId" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
@@ -63,6 +66,12 @@ CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User.avatar_unique" ON "User"("avatar");
+
+-- AddForeignKey
+ALTER TABLE "User" ADD FOREIGN KEY ("guildId") REFERENCES "Guild"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Guild" ADD FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Message" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

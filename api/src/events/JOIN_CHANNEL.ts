@@ -3,10 +3,9 @@ import { Event } from "structures/Event";
 import { Events } from "types/Events";
 import { getSocketSession } from "utils/auth/getSocketSession";
 
-export interface MessageCreateEventData {
+export interface JoinChannelData {
   guildId: string;
   channelId: string;
-  content: string;
 }
 
 export default class JOIN_CHANNEL extends Event {
@@ -14,8 +13,8 @@ export default class JOIN_CHANNEL extends Event {
     super(server, Events.JOIN_CHANNEL);
   }
 
-  async handle(socket: Socket, data: MessageCreateEventData) {
-    if (!data.channelId || !data.guildId || !data.content) return;
+  async handle(socket: Socket, data: JoinChannelData) {
+    if (!data.channelId || !data.guildId) return;
     const user = await getSocketSession(socket);
     if (!user) return;
 

@@ -87,6 +87,7 @@ router.post("/register", async (req: Request, res: Response) => {
       email,
       password: hash,
       tag: generateTag(),
+      username: name,
     },
   });
 
