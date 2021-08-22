@@ -1,5 +1,6 @@
 import * as React from "react";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import { AppLayout } from "components/app-layout/AppLayout";
 import { MOCK_CHANNELS } from "components/channel-list/ChannelsList";
 import { useChannelsStore } from "lib/state/channelsState";
@@ -42,7 +43,14 @@ export default function Channel({ channel, channels, messages, guild }: Props) {
     }
   }, [guild, setGuild]);
 
-  return <AppLayout />;
+  return (
+    <>
+      <Head>
+        <title>{channel?.name ?? guild?.name ?? "Discord clone"}</title>
+      </Head>
+      <AppLayout />
+    </>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
