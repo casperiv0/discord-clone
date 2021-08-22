@@ -1,3 +1,4 @@
+import { useChannelsStore } from "lib/state/channelsState";
 import * as React from "react";
 import { Channel } from "types/Channel";
 import { ChannelItem } from "./ChannelItem";
@@ -28,12 +29,27 @@ export const MOCK_CHANNELS: Channel[] = [
     guildId: "1",
     topic: null,
   },
+  {
+    id: "4",
+    name: "Testing",
+    type: "GUILD_CATEGORY",
+    parentId: null,
+    guildId: "1",
+    topic: null,
+  },
 ];
 
 export const ChannelsList = () => {
+  const channels = useChannelsStore((s) => s.channels);
+  const setChannels = useChannelsStore((s) => s.setChannels);
+
+  React.useEffect(() => {
+    setChannels(MOCK_CHANNELS);
+  }, [setChannels]);
+
   return (
     <div className={styles.channelsList}>
-      {MOCK_CHANNELS.map((channel) => (
+      {channels.map((channel) => (
         <ChannelItem channel={channel} key={channel.id} />
       ))}
     </div>

@@ -1,14 +1,15 @@
 import * as React from "react";
-import { Channel } from "types/Channel";
+import { useChannelsStore } from "lib/state/channelsState";
 import styles from "./channel.module.scss";
 import { TopicModal } from "./TopicModal";
 
-interface Props {
-  channel: Channel;
-}
-
-export const ChannelHeader = ({ channel }: Props) => {
+export const ChannelHeader = () => {
+  const channel = useChannelsStore((s) => s.currentChannel);
   const [isOpen, setOpen] = React.useState(false);
+
+  if (!channel) {
+    return null;
+  }
 
   return (
     <div className={styles.channelHeader}>

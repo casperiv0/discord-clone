@@ -3,7 +3,7 @@ import { Guild } from "types/Guild";
 import { GuildItem } from "./GuildItem";
 import styles from "./guilds.module.scss";
 
-const MOCK_GUILDS: Guild[] = [
+export const MOCK_GUILDS: Guild[] = [
   {
     id: "1",
     name: "Hello",

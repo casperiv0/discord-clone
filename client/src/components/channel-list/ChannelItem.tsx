@@ -1,3 +1,4 @@
+import * as React from "react";
 import ReactTooltip from "react-tooltip";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -5,6 +6,8 @@ import { Channel } from "types/Channel";
 import { classes } from "utils/classes";
 import { isChannelActive } from "utils/channel/isChannelActive";
 import styles from "./channels.module.scss";
+import { PlusIcon } from "src/icons/Plus";
+import { CreateChannelModal } from "components/modals/CreateChannelModal";
 
 interface Props {
   channel: Channel;
@@ -33,6 +36,8 @@ const TextChannel = ({ channel }: Props) => {
 };
 
 const GuildCategory = ({ channel }: Props) => {
+  const [isOpen, setOpen] = React.useState(false);
+
   return (
     <div className={classes(styles.channel, styles.categoryChannel)}>
       {channel.name}
@@ -41,8 +46,9 @@ const GuildCategory = ({ channel }: Props) => {
         data-tip
         data-for={`create-channel-${channel.id}-tooltip`}
         className={styles.addChannel}
+        onClick={() => setOpen(true)}
       >
-        +
+        <PlusIcon width="12px" height="12px" />
       </button>
 
       <ReactTooltip
@@ -54,6 +60,12 @@ const GuildCategory = ({ channel }: Props) => {
       >
         <span>Create channel</span>
       </ReactTooltip>
+
+      <CreateChannelModal
+        parentId={channel.type === "GUILD_CATEGORY" ? channel.id : null}
+        isOpen={isOpen}
+        onClose={() => setOpen(false)}
+      />
     </div>
   );
 };

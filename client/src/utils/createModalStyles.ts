@@ -17,9 +17,11 @@ export function createModalStyles(styles: Modal.Styles = {}): Modal.Styles {
       border: "none",
       borderRadius: "0.5rem",
       padding: "0.2rem 0.5rem",
+      animation: "modalAnimation 200ms",
       ...styles.content,
     },
     overlay: {
+      zIndex: 10,
       background: "rgba(0, 0, 0, 0.5)",
       ...styles.overlay,
     },

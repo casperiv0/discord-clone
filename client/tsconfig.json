@@ -21,7 +21,9 @@
       "lib/*": ["./src/lib/*"],
       "utils/*": ["./src/utils/*"],
       "styles/*": ["./src/styles/*"],
-      "types/*": ["./src/types/*"]
+      "types/*": ["./src/types/*"],
+      "icons/*": ["./src/icons/*"],
+      "state/*": ["./src/lib/state/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

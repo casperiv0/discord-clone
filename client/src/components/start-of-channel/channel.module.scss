@@ -1,0 +1,13 @@
+.startOfChannel {
+  padding: 1rem;
+  cursor: default;
+  user-select: none;
+
+  & h1 {
+    color: #ffffff;
+  }
+
+  & p {
+    color: #a5a7ab;
+  }
+}

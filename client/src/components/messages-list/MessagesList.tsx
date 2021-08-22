@@ -1,9 +1,11 @@
+import * as React from "react";
 import { ChannelHeader } from "components/channel-header/ChannelHeader";
-import { MOCK_CHANNELS } from "components/channel-list/ChannelsList";
 import { CreateMessage } from "components/create-message/CreateMessage";
 import { MessageItem } from "components/message/Message";
+import { useMessagesStore } from "lib/state/messagesState";
 import { Message } from "types/Message";
 import styles from "./messages.module.scss";
+import { StartOfChannel } from "components/start-of-channel/StartOfChannel";
 
 export const MOCK_USER = {
   avatar: "https://avatars.githubusercontent.com/u/53900565?v=4",
@@ -13,11 +15,11 @@ export const MOCK_USER = {
   tag: 4546,
 };
 
-const MOCK_MESSAGES: Message[] = [
+export const MOCK_MESSAGES: Message[] = [
   {
     id: "1",
     guildId: "1",
-    channelId: "1",
+    channelId: "2",
     components: [],
     content: "Hello world! This is a test.",
     user: MOCK_USER,
@@ -25,7 +27,7 @@ const MOCK_MESSAGES: Message[] = [
   {
     id: "2",
     guildId: "1",
-    channelId: "1",
+    channelId: "2",
     components: [],
     content: "Another Message!",
     user: MOCK_USER,
@@ -33,7 +35,7 @@ const MOCK_MESSAGES: Message[] = [
   {
     id: "3",
     guildId: "1",
-    channelId: "1",
+    channelId: "2",
     components: [],
     content: "Yay!",
     user: MOCK_USER,
@@ -41,15 +43,21 @@ const MOCK_MESSAGES: Message[] = [
 ];
 
 export const MessagesList = () => {
+  const messages = useMessagesStore((s) => s.messages);
+
   return (
     <>
-      <ChannelHeader channel={MOCK_CHANNELS[1]!} />
+      <ChannelHeader />
       <div className={styles.messagesList}>
         <CreateMessage />
 
-        {MOCK_MESSAGES.map((message) => {
-          return <MessageItem key={message.id} message={message} />;
-        })}
+        <div>
+          {messages.map((message) => {
+            return <MessageItem key={message.id} message={message} />;
+          })}
+        </div>
+
+        <StartOfChannel />
       </div>
     </>
   );

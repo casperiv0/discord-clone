@@ -1,6 +1,17 @@
+.createMessageContainer {
+  position: fixed;
+  bottom: 0;
+  // todo: improve this
+  width: calc(100vw - 35.6rem);
+
+  background: #36393f;
+  z-index: 1;
+}
+
 .createMessage {
   margin: 1rem;
   margin-bottom: 2rem;
+
   display: flex;
   align-items: center;
 
