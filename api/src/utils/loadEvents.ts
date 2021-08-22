@@ -11,9 +11,9 @@ export async function loadEvents(server: Server) {
   for (const path of paths) {
     delete require.cache[path];
 
-    const resolved = resolve(path).split(".ts").join("");
+    const resolved = resolve(path);
 
-    const File = await (await import(`${resolved}.ts`)).default;
+    const File = await (await import(resolved)).default;
     const event = new File(server) as Event;
 
     map.set(event.name, event);

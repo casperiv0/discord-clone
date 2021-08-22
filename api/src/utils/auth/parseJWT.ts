@@ -7,7 +7,7 @@ export async function parseJWT(cookie: string) {
     const vToken = jwt.verify(cookie, secret);
 
     return vToken as string;
-  } catch (e) {
+  } catch {
     return null;
   }
 }
