@@ -1,3 +1,4 @@
+import { GuildHeader } from "components/guild-header/GuildHeader";
 import { useChannelsStore } from "lib/state/channelsState";
 import * as React from "react";
 import { Channel } from "types/Channel";
@@ -37,6 +38,14 @@ export const MOCK_CHANNELS: Channel[] = [
     guildId: "1",
     topic: null,
   },
+  {
+    id: "5",
+    name: "this-is-a-super-long-channel-name",
+    type: "GUILD_TEXT",
+    parentId: null,
+    guildId: "1",
+    topic: null,
+  },
 ];
 
 export const ChannelsList = () => {
@@ -49,6 +58,7 @@ export const ChannelsList = () => {
 
   return (
     <div className={styles.channelsList}>
+      <GuildHeader />
       {channels.map((channel) => (
         <ChannelItem channel={channel} key={channel.id} />
       ))}

@@ -5,6 +5,7 @@ import styles from "styles/form.module.scss";
 import { useChannelsStore } from "lib/state/channelsState";
 import { Channel } from "types/Channel";
 import { useGuildStore } from "lib/state/guildsState";
+import { parseChannelName } from "utils/channel/parseChannelName";
 
 interface Props {
   isOpen: boolean;
@@ -53,7 +54,7 @@ export const CreateChannelModal = ({ isOpen, onClose, parentId }: Props) => {
               id="channel_name"
               className={styles.formInput}
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(parseChannelName(e.target.value))}
             />
           </div>
         </div>

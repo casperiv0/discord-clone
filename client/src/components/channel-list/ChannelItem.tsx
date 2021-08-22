@@ -27,7 +27,10 @@ const TextChannel = ({ channel }: Props) => {
   const channelActive = isChannelActive(router.query.channelId as string, channel.id);
 
   return (
-    <div className={classes(styles.channel, styles.textChannel, channelActive && styles.active)}>
+    <div
+      title={channel.name}
+      className={classes(styles.channel, styles.textChannel, channelActive && styles.active)}
+    >
       <Link href={href}>
         <a># {channel.name}</a>
       </Link>
@@ -40,7 +43,7 @@ const GuildCategory = ({ channel }: Props) => {
 
   return (
     <div className={classes(styles.channel, styles.categoryChannel)}>
-      {channel.name}
+      <span title={channel.name}>{channel.name}</span>
 
       <button
         data-tip
