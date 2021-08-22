@@ -1,4 +1,4 @@
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 
 export abstract class Event {
   server: Server;
@@ -11,5 +11,5 @@ export abstract class Event {
     this.handle = this.handle.bind(this);
   }
 
-  abstract handle(...args: any[]): Promise<unknown>;
+  abstract handle(socket: Socket, ...args: any[]): Promise<unknown>;
 }

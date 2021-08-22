@@ -21,6 +21,7 @@ model User {
   bio         String
   status      String
   connections Connection[]
+  messages    Message[]
 }
 
 model Guild {
@@ -28,14 +29,27 @@ model Guild {
   name     String
   icon     String
   channels Channel[]
+  messages  Message[]
+}
+
+model Message {
+  id        String  @id @default(uuid())
+  content   String
+  user      User    @relation(fields: [userId], references: [id])
+  channel   Channel @relation(fields: [channelId], references: [id])
+  guild     Guild   @relation(fields: [guildId], references: [id])
+  userId    String
+  channelId String
+  guildId   String
 }
 
 model Channel {
-  id      String      @id @default(uuid())
-  type    ChannelType
-  name    String
-  guild   Guild?      @relation(fields: [guildId], references: [id])
-  guildId String?
+  id       String      @id @default(uuid())
+  type     ChannelType
+  name     String
+  guild    Guild?      @relation(fields: [guildId], references: [id])
+  guildId  String?
+  messages Message[]
 }
 
 model Connection {

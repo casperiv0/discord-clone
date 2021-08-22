@@ -24,7 +24,7 @@ export class SocketService {
 
     this.io.on("connection", (socket) => {
       this.events.forEach((event) => {
-        socket.on(event.name, event.handle);
+        socket.on(event.name, event.handle.bind(null, socket));
       });
     });
   }

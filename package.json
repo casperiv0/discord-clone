@@ -5,7 +5,9 @@
     "format:quick": "pretty-quick --staged --pattern \"**/*.{js,jsx,ts,tsx,md,css,json}\"",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,css,json}\" --ignore-path .gitignore",
     "lint": "eslint . --ext .ts,.js,.tsx,.jsx",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "dev:api": "npm run api:migrate && cd api &&  npm run dev",
+    "api:migrate": "cd api && npx prisma migrate dev"
   },
   "license": "MIT",
   "devDependencies": {

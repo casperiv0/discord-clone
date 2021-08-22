@@ -3,6 +3,7 @@ import { useMessagesStore } from "state/messagesState";
 import { PlusIcon } from "icons/Plus";
 import styles from "./message.module.scss";
 import { MOCK_USER } from "components/messages-list/MessagesList";
+import { socket } from "lib/socket";
 
 export const CreateMessage = () => {
   const [message, setMessage] = React.useState("");
@@ -11,6 +12,12 @@ export const CreateMessage = () => {
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setMessage("");
+
+    socket.emit("MESSAGE_CREATE", {
+      content: message,
+      channelId: "1",
+      guildId: "1",
+    });
 
     messagesStore.setMessages([
       ...messagesStore.messages,

@@ -1,6 +1,8 @@
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
+import { prisma } from "lib/prisma";
 import { Event } from "structures/Event";
 import { Events } from "types/Events";
+import { getSocketSession } from "utils/auth/getSocketSession";
 
 export interface MessageCreateEventData {
   guildId: string;
@@ -13,11 +15,25 @@ export default class MESSAGE_CREATE extends Event {
     super(server, Events.MESSAGE_CREATE);
   }
 
-  async handle(e: MessageCreateEventData) {
-    console.log(e);
+  async handle(socket: Socket, data: MessageCreateEventData) {
+    if (!data.channelId || !data.guildId || !data.content) return;
+    const user = await getSocketSession(socket);
+    if (!user) return;
 
-    // this.server.to()
+    const roomName = `${data.guildId}_${data.channelId}`;
 
-    this.server.sockets.emit("MESSAGE_CREATE", { data: "hello" });
+    const message = await prisma.message.create({
+      data: {
+        content: data.content,
+        channelId: data.channelId,
+        guildId: data.guildId,
+        userId: user.id,
+      },
+    });
+
+    console.log(message);
+
+    await socket.join(roomName);
+    socket.broadcast.to(roomName).emit(Events.MESSAGE_CREATE, { message });
   }
 }
