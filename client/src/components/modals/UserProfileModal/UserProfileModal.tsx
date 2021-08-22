@@ -12,8 +12,6 @@ interface Props {
 }
 
 export const UserProfileModal = ({ user, isOpen, onClose }: Props) => {
-  console.log(user);
-
   return (
     <Modal
       style={createModalStyles({

@@ -12,12 +12,27 @@ interface Props {
   side?: "left" | "right";
 }
 
+const POPUP_HEIGHT = 339.5;
+
 export const UserPopup = ({ user, children, width = "max-content", side = "right" }: Props) => {
   const [note, setNote] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
 
+  const [top, setTop] = React.useState(0);
+  const [left, setLeft] = React.useState(0);
+
   const ref = useOnclickOutside(() => setOpen(false));
+
+  function onClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    const target = e.target as HTMLImageElement;
+    const { left, width, top } = target.getBoundingClientRect();
+
+    if (top >= 950) {
+      setTop(top - POPUP_HEIGHT + 100);
+      setLeft(left + width + 5);
+    }
+  }
 
   function handleOpen() {
     setModalOpen(true);
@@ -27,12 +42,25 @@ export const UserPopup = ({ user, children, width = "max-content", side = "right
   return (
     <>
       <div style={{ width }} className={styles.popupContainer}>
-        <div ref={ref} onClick={() => setOpen((v) => !v)}>
+        <div
+          ref={ref}
+          onClick={(e) => {
+            onClick(e);
+            setOpen((v) => !v);
+          }}
+        >
           {children}
         </div>
         {open ? (
-          // todo: fix top offset.
-          <div ref={ref} className={classes(styles.popup, side)}>
+          <div
+            style={{
+              position: top ? "fixed" : "absolute",
+              top: top ? `${top}px` : undefined,
+              left: left ? `${left}px` : undefined,
+            }}
+            ref={ref}
+            className={classes(styles.popup, side)}
+          >
             <div className={styles.bannerContainer}>
               <div className={styles.popupBanner} />
               <button onClick={handleOpen} className={styles.popupAvatar}>
