@@ -28,7 +28,14 @@ export const ContextMenu = ({ items, children }: Props) => {
 
     setOpen(true);
 
-    setCoords({ x: e.pageX + 10, y: e.pageY });
+    console.log(e);
+
+    setCoords({ x: e.pageX, y: e.pageY });
+  }
+
+  function handleClick(item: ContextItem, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    item.onClick?.(e);
+    setOpen(false);
   }
 
   return (
@@ -37,26 +44,24 @@ export const ContextMenu = ({ items, children }: Props) => {
         {children}
       </div>
 
-      <div
-        ref={ref}
-        style={{ top: coords.y, left: coords.x, display: open ? "flex" : "none" }}
-        className={styles.contextMenu}
-      >
-        {items.map((item, idx) =>
-          typeof item === "boolean" ? (
-            <div className={styles.contextDivider} />
-          ) : (
-            <button
-              key={`${item.name}-${idx}`}
-              onClick={item.onClick}
-              className={classes(styles.contextItem, item.danger && styles.danger)}
-              {...item}
-            >
-              {item.name}
-            </button>
-          ),
-        )}
-      </div>
+      {open ? (
+        <div ref={ref} style={{ top: coords.y, left: coords.x }} className={styles.contextMenu}>
+          {items.map((item, idx) =>
+            typeof item === "boolean" ? (
+              <div className={styles.contextDivider} />
+            ) : (
+              <button
+                {...item}
+                key={idx}
+                onClick={handleClick.bind(null, item)}
+                className={classes(styles.contextItem, item.danger && styles.danger)}
+              >
+                {item.name}
+              </button>
+            ),
+          )}
+        </div>
+      ) : null}
     </>
   );
 };

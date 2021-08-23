@@ -32,14 +32,12 @@ export const MessageItem = ({ message, idx }: Props) => {
           </div>
         </UserPopup>
       )}
-
       <div className={classes(styles.message, style)}>
         {prevMessage() ? null : (
           <UserPopup user={message.user}>
             <h3>{message.user.username}</h3>
           </UserPopup>
         )}
-
         <p>{message.content}</p>
       </div>
     </div>

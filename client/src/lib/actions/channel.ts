@@ -37,3 +37,13 @@ export async function createChannel({
     return null;
   }
 }
+
+export async function deleteChannel(id: string): Promise<Channel | null> {
+  try {
+    await request(`/channels/${id}`, "DELETE");
+
+    return null;
+  } catch (e) {
+    return null;
+  }
+}

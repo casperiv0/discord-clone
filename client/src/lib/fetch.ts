@@ -7,7 +7,7 @@ export type RequestData = Record<string, unknown> | { cookie: string };
 
 export async function request<T extends RequestData = RequestData>(
   path: string,
-  method: "POST" | "GET" | "PUT" = "GET",
+  method: "POST" | "GET" | "PUT" | "DELETE" = "GET",
   data?: T,
 ) {
   const parsedCookie = parse((data?.cookie as string) ?? "")?.["discord-clone"] ?? "";

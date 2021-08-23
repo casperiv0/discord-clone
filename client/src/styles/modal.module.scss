@@ -1,0 +1,49 @@
+.alertTitle {
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.alertModalActions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  margin-top: 1rem;
+  padding: 1rem;
+
+  background: #2f3136;
+}
+
+.alertModalDescription {
+  padding: 0 1rem;
+
+  font-size: 1.2rem;
+  color: #d2d3d5;
+}
+
+.btn {
+  background: none;
+  border: none;
+  border-radius: 0.3rem;
+
+  cursor: pointer;
+
+  color: white;
+  padding: 0.5rem;
+  font-size: 1rem;
+
+  &.danger {
+    background: #c02d36;
+    text-decoration: none;
+  }
+
+  &:hover:enabled {
+    text-decoration: underline;
+
+    &.danger {
+      text-decoration: none;
+      filter: brightness(90%);
+    }
+  }
+}
