@@ -7,4 +7,5 @@ export interface Message {
   channelId: string;
   guildId: string;
   user: User;
+  createdAt: Date;
 }

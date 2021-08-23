@@ -21,8 +21,6 @@ export const MessagesList = () => {
 
   React.useEffect(() => {
     const handler = (message: Message) => {
-      console.log(message);
-
       setMessages([...messages, message]);
     };
 

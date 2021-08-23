@@ -31,6 +31,7 @@ router.post("/:guildId", withAuth, async (req: IRequest, res: Response) => {
       name: req.body.name,
       type: req.body.type,
       guildId: req.params.guildId,
+      parentId: req.body.parentId ?? null,
     },
   });
 

@@ -7,15 +7,24 @@ import { classes } from "utils/classes";
 import { useModalStore } from "lib/state/modalState";
 import { Modals } from "types/Modals";
 import { CreateCategoryModal } from "components/modals/CreateCategoryModal";
+import { CreateChannelModal } from "components/modals/CreateChannelModal";
 
 export const GuildHeader = () => {
   const openModal = useModalStore((s) => s.openModal);
   const [open, setOpen] = React.useState(false);
+
+  const [channelOpen, setChOpen] = React.useState(false);
+
   const currentGuild = useGuildStore((s) => s.currentGuild);
   const ref = useOnclickOutside(() => setOpen(false));
 
   function handleOpen(id: number) {
-    openModal(id);
+    if (id === Modals.CREATE_CHANNEL) {
+      setChOpen(true);
+    } else {
+      openModal(id);
+    }
+
     setOpen(false);
   }
 
@@ -50,6 +59,7 @@ export const GuildHeader = () => {
         </div>
       ) : null}
 
+      <CreateChannelModal parentId={null} isOpen={channelOpen} onClose={() => setChOpen(false)} />
       <CreateCategoryModal />
     </>
   );

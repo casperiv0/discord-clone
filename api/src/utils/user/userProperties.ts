@@ -9,5 +9,13 @@ export function userProperties() {
     status: true,
     tag: true,
     username: true,
+    connections: {
+      select: {
+        id: true,
+        type: true,
+        url: true,
+        name: true,
+      },
+    },
   };
 }

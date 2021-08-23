@@ -5,17 +5,17 @@ import styles from "styles/form.module.scss";
 import { useChannelsStore } from "lib/state/channelsState";
 import { useGuildStore } from "lib/state/guildsState";
 import { parseChannelName } from "utils/channel/parseChannelName";
-import { useModalStore } from "lib/state/modalState";
-import { Modals } from "types/Modals";
 import { createChannel } from "lib/actions/channel";
+import { ChannelType } from "types/Channel";
+import { socket } from "lib/socket";
 
 interface Props {
   parentId: string | null;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export const CreateChannelModal = ({ parentId }: Props) => {
-  const { isOpen, closeModal } = useModalStore();
-
+export const CreateChannelModal = ({ isOpen, parentId, onClose }: Props) => {
   const [name, setName] = React.useState("");
   const channelStore = useChannelsStore();
   const currentGuild = useGuildStore((s) => s.currentGuild);
@@ -26,24 +26,25 @@ export const CreateChannelModal = ({ parentId }: Props) => {
 
     const data = await createChannel({
       name,
-      type: "GUILD_TEXT",
+      type: ChannelType.GUILD_TEXT,
       guildId: currentGuild.id,
       parentId,
     });
 
     if (data) {
+      socket.emit("CHANNEL_CREATE", { guildId: currentGuild.id, channelId: data.id });
       channelStore.setChannels([...channelStore.channels, data]);
 
       setName("");
-      closeModal(Modals.CREATE_CHANNEL);
+      onClose();
     }
   }
 
   return (
     <Modal
       style={createModalStyles({ content: { padding: "0", width: "25rem" } })}
-      isOpen={isOpen(Modals.CREATE_CHANNEL)}
-      onRequestClose={() => closeModal(Modals.CREATE_CHANNEL)}
+      isOpen={isOpen}
+      onRequestClose={onClose}
     >
       <form onSubmit={onSubmit}>
         <div style={{ padding: "1rem" }}>

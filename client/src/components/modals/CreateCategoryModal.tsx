@@ -1,12 +1,13 @@
 import * as React from "react";
 import Modal from "react-modal";
 import { createModalStyles } from "utils/createModalStyles";
-import styles from "styles/form.module.scss";
 import { useChannelsStore } from "lib/state/channelsState";
-import { Channel } from "types/Channel";
+import { ChannelType } from "types/Channel";
 import { useGuildStore } from "lib/state/guildsState";
 import { useModalStore } from "lib/state/modalState";
 import { Modals } from "types/Modals";
+import { createChannel } from "lib/actions/channel";
+import styles from "styles/form.module.scss";
 
 export const CreateCategoryModal = () => {
   const { isOpen, closeModal } = useModalStore();
@@ -15,23 +16,23 @@ export const CreateCategoryModal = () => {
   const channelStore = useChannelsStore();
   const currentGuild = useGuildStore((s) => s.currentGuild);
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!currentGuild) return;
 
-    const channel: Channel = {
-      guildId: currentGuild.id,
-      id: Math.floor(Math.random() * 100_000_000).toString(),
+    const channel = await createChannel({
       name,
+      type: ChannelType.GUILD_CATEGORY,
+      guildId: currentGuild.id,
       parentId: null,
-      topic: null,
-      type: "GUILD_CATEGORY",
-    };
+    });
 
-    channelStore.setChannels([...channelStore.channels, channel]);
+    if (channel) {
+      channelStore.setChannels([...channelStore.channels, channel]);
 
-    setName("");
-    closeModal(Modals.CREATE_CATEGORY);
+      setName("");
+      closeModal(Modals.CREATE_CATEGORY);
+    }
   }
 
   return (

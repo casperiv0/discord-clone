@@ -15,6 +15,7 @@ import { getGuild, getGuilds } from "lib/actions/guild";
 import { getChannelById, getChannelsForGuild } from "lib/actions/channel";
 import { getMessagesInChannel } from "lib/actions/message";
 import { socket } from "lib/socket";
+import { useRouter } from "next/router";
 
 interface Props {
   channel: TChannel | null;
@@ -33,11 +34,14 @@ export default function Channel({ channel, channels, guilds, messages, guild, us
   const setGuilds = useGuildStore((s) => s.setGuilds);
   const setUser = useAuthStore((s) => s.setUser);
 
+  const router = useRouter();
+
   React.useEffect(() => {
     if (guild && channel) {
       socket.emit("JOIN_CHANNEL", { guildId: guild.id, channelId: channel.id });
     }
-  }, [guild, channel]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [channel]);
 
   React.useEffect(() => {
     setMessages(messages);
@@ -60,6 +64,12 @@ export default function Channel({ channel, channels, guilds, messages, guild, us
       setGuilds(guilds);
     }
   }, [guild, guilds, setGuild, setGuilds]);
+
+  React.useEffect(() => {
+    if (!user) {
+      router.push("/auth/login");
+    }
+  }, [user, router]);
 
   React.useEffect(() => {
     if (user) {

@@ -20,6 +20,6 @@ export default class JOIN_CHANNEL extends Event {
 
     const roomName = `${data.guildId}_${data.channelId}`;
 
-    await socket.join(roomName);
+    await socket.join([roomName, data.guildId]);
   }
 }

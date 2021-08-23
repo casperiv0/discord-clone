@@ -8,4 +8,7 @@ export interface Channel {
   type: ChannelType;
 }
 
-export type ChannelType = "GUILD_CATEGORY" | "GUILD_TEXT" | "GUILD_VOICE";
+export enum ChannelType {
+  GUILD_CATEGORY = "GUILD_CATEGORY",
+  GUILD_TEXT = "GUILD_TEXT",
+}

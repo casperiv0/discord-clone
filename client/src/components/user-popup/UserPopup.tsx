@@ -75,10 +75,14 @@ export const UserPopup = ({ user, children, width = "max-content", side = "right
                 </h1>
               </div>
               <div className={styles.divider} />
-              <div className={styles.aboutMe}>
-                <h3 className={styles.header}>About Me</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero, alias?</p>
-              </div>
+
+              {user.bio ? (
+                <div className={styles.aboutMe}>
+                  <h3 className={styles.header}>About Me</h3>
+                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero, alias?</p>
+                </div>
+              ) : null}
+
               <div style={{ marginTop: "1rem" }}>
                 <h3 className={styles.header}>Note</h3>
                 <input
