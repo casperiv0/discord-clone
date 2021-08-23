@@ -8,14 +8,6 @@ import { StartOfChannel } from "components/start-of-channel/StartOfChannel";
 import { socket } from "lib/socket";
 import { Message } from "types/Message";
 
-export const MOCK_USER = {
-  avatar: "https://avatars.githubusercontent.com/u/53900565?v=4",
-  email: "test@test.com",
-  id: "1",
-  username: "CasperTheGhost",
-  tag: 4546,
-};
-
 export const MessagesList = () => {
   const { messages, setMessages } = useMessagesStore();
 

@@ -9,3 +9,7 @@ export const registerSchema = {
   ...loginSchema,
   name: yup.string().required(),
 };
+
+export const deleteAccountSchema = {
+  password: yup.string().required().min(8),
+};

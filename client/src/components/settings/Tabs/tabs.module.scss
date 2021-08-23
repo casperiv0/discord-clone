@@ -11,6 +11,13 @@
   margin-bottom: 1rem;
 }
 
+.tabDivider {
+  width: 100%;
+  height: 1.5px;
+  background: #43464d;
+  margin: 1.5rem 0;
+}
+
 .accountPreview {
   border-radius: 0.5rem;
   overflow: hidden;
@@ -114,5 +121,16 @@
 
   &:hover {
     background: #5d6269;
+  }
+}
+
+.deleteAccountBtn {
+  @extend .editProfileBtn;
+  padding: 0.5rem 1rem;
+
+  background: #ed3844;
+
+  &:hover {
+    background: #c02d36;
   }
 }

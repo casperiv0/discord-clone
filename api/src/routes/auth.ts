@@ -4,7 +4,7 @@ import { compareSync, genSaltSync, hashSync } from "bcryptjs";
 import { prisma } from "lib/prisma";
 import { createSessionToken } from "utils/auth/createSessionToken";
 import { setCookie } from "utils/auth/setCookie";
-import { loginSchema, registerSchema } from "schemas/auth";
+import { deleteAccountSchema, loginSchema, registerSchema } from "schemas/auth";
 import { generateTag } from "utils/user/generateTag";
 import { withAuth } from "utils/auth/withAuth";
 import { IRequest } from "types/IRequest";
@@ -117,6 +117,46 @@ router.post("/user", withAuth, async (req: IRequest, res: Response) => {
   const user = await getSessionUser(req.userId!);
 
   return res.json({ user });
+});
+
+router.delete("/user", withAuth, async (req: IRequest, res: Response) => {
+  const { password } = req.body;
+
+  const [error] = await validateSchema<typeof deleteAccountSchema>(deleteAccountSchema, {
+    password,
+  });
+
+  if (error) {
+    return res.status(400).json({
+      error: error.message,
+    });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: req.userId!,
+    },
+    select: {
+      password: true,
+    },
+  });
+
+  const isPwCorrect = compareSync(password, user!.password);
+  if (!isPwCorrect) {
+    return res.status(400).json({
+      error: "Password is invalid",
+    });
+  }
+
+  await prisma.user.delete({
+    where: {
+      id: req.userId,
+    },
+  });
+
+  req.userId = undefined;
+
+  return res.status(200).send();
 });
 
 export const authRouter = router;

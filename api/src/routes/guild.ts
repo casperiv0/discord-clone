@@ -4,26 +4,34 @@ import { prisma } from "lib/prisma";
 import { createGuildSchema } from "schemas/guild";
 import { IRequest } from "types/IRequest";
 import { withAuth } from "utils/auth/withAuth";
+import { userProperties } from "utils/user/userProperties";
 
 const router = Router();
 
 router.get("/@me", withAuth, async (req: IRequest, res: Response) => {
-  const user = await prisma.user.findUnique({
+  const guilds = await prisma.guild.findMany({
     where: {
-      id: req.userId,
+      ownerId: req.userId!,
     },
-    select: {
-      guilds: true,
+    include: {
+      members: {
+        select: userProperties(),
+      },
     },
   });
 
-  return res.json({ guilds: user?.guilds ?? [] });
+  return res.json({ guilds });
 });
 
 router.get("/:id", withAuth, async (req: IRequest, res: Response) => {
   const guild = await prisma.guild.findUnique({
     where: {
       id: req.params.id,
+    },
+    include: {
+      members: {
+        select: userProperties(),
+      },
     },
   });
 
@@ -53,10 +61,28 @@ router.post("/", withAuth, async (req: IRequest, res: Response) => {
     data: {
       name: req.body.name,
       ownerId: req.userId!,
+      members: {
+        connect: {
+          id: req.userId,
+        },
+      },
     },
   });
 
   return res.json({ guild });
+});
+
+router.delete("/:id", withAuth, async (req: IRequest, res: Response) => {
+  await prisma.guild.delete({
+    where: {
+      id: req.params.id!,
+    },
+    include: {
+      messages: true,
+    },
+  });
+
+  return res.status(200).send();
 });
 
 export const guildRouter = router;

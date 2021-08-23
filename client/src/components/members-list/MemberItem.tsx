@@ -1,16 +1,16 @@
-import { GuildMember } from "types/Member";
+import { User } from "types/User";
 import styles from "./members.module.scss";
 
 interface Props {
-  member: GuildMember;
+  user: User;
 }
 
-export const MemberItem = ({ member }: Props) => {
+export const MemberItem = ({ user }: Props) => {
   return (
     <div className={styles.memberItem}>
-      <img src={member.user.avatar!} />
+      <img src={user.avatar!} />
 
-      <h1>{member.user.username}</h1>
+      <h1>{user.username}</h1>
     </div>
   );
 };

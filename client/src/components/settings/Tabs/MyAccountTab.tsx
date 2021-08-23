@@ -2,12 +2,15 @@ import * as React from "react";
 import { useSettingsStore } from "lib/state/settingsState";
 import { useAuthStore } from "lib/state/authState";
 import { SettingsTabs } from "../SettingsOverlay";
+// @ts-expect-error ignore.
+import { header } from "components/user-popup/popup.module.scss";
 import styles from "./tabs.module.scss";
 
 enum AccountModals {
   EDIT_USERNAME,
   EDIT_EMAIL,
   EDIT_PASSWORD,
+  DELETE_ACCOUNT,
 }
 
 export const MyAccountTab = () => {
@@ -68,6 +71,15 @@ export const MyAccountTab = () => {
               </button>
             </div>
           </div>
+        </div>
+
+        <div className={styles.tabDivider} />
+
+        <div>
+          <h3 className={header}>account removal</h3>
+          <p style={{ margin: "0.5rem 0", color: "#b6b9bd" }}>This action cannot be undone.</p>
+
+          <button className={styles.deleteAccountBtn}>Delete Account</button>
         </div>
       </div>
     </>

@@ -29,7 +29,7 @@ export const ContextMenu = ({ items, children }: Props) => {
 
     setOpen(true);
 
-    setCoords({ x: e.pageX, y: e.pageY });
+    setCoords({ x: e.pageX - 50, y: e.pageY });
   }
 
   function handleClick(item: ContextItem, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
