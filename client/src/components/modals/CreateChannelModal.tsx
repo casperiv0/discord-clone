@@ -1,13 +1,13 @@
 import * as React from "react";
 import Modal from "react-modal";
 import { createModalStyles } from "utils/createModalStyles";
-import styles from "styles/form.module.scss";
 import { useChannelsStore } from "lib/state/channelsState";
 import { useGuildStore } from "lib/state/guildsState";
 import { parseChannelName } from "utils/channel/parseChannelName";
 import { createChannel } from "lib/actions/channel";
 import { ChannelType } from "types/Channel";
 import { socket } from "lib/socket";
+import styles from "styles/form.module.scss";
 
 interface Props {
   parentId: string | null;
@@ -62,7 +62,9 @@ export const CreateChannelModal = ({ isOpen, parentId, onClose }: Props) => {
           </div>
         </div>
         <footer className={styles.footer}>
-          <button className={styles.formBtn}>Create</button>
+          <button disabled={!name} className={styles.formBtn}>
+            Create
+          </button>
         </footer>
       </form>
     </Modal>

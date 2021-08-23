@@ -1,4 +1,5 @@
 import * as React from "react";
+import { v4 } from "uuid";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { classes } from "utils/classes";
 import styles from "./context.module.scss";
@@ -28,8 +29,6 @@ export const ContextMenu = ({ items, children }: Props) => {
 
     setOpen(true);
 
-    console.log(e);
-
     setCoords({ x: e.pageX, y: e.pageY });
   }
 
@@ -46,13 +45,13 @@ export const ContextMenu = ({ items, children }: Props) => {
 
       {open ? (
         <div ref={ref} style={{ top: coords.y, left: coords.x }} className={styles.contextMenu}>
-          {items.map((item, idx) =>
+          {items.map((item) =>
             typeof item === "boolean" ? (
-              <div className={styles.contextDivider} />
+              <div key={v4()} className={styles.contextDivider} />
             ) : (
               <button
                 {...item}
-                key={idx}
+                key={v4()}
                 onClick={handleClick.bind(null, item)}
                 className={classes(styles.contextItem, item.danger && styles.danger)}
               >

@@ -1,8 +1,10 @@
+import * as React from "react";
 import { ChannelsList } from "components/channel-list/ChannelsList";
 import { GuildsList } from "components/guilds-list/GuildsList";
 import { MembersList } from "components/members-list/MembersList";
 import { MessagesList } from "components/messages-list/MessagesList";
 import { CreateGuildModal } from "components/modals/CreateGuildModal";
+import { SettingsOverlay } from "components/settings/SettingsOverlay";
 import styles from "./layout.module.scss";
 
 export const AppLayout = () => {
@@ -14,6 +16,7 @@ export const AppLayout = () => {
       <MembersList />
 
       <CreateGuildModal />
+      <SettingsOverlay />
     </div>
   );
 };

@@ -97,6 +97,22 @@ router.post("/register", async (req: Request, res: Response) => {
   return res.json({ userId: createdUser.id });
 });
 
+router.put("/user", withAuth, async (req: IRequest, res: Response) => {
+  const { avatarUrl, username } = req.body;
+
+  await prisma.user.update({
+    where: {
+      id: req.userId!,
+    },
+    data: {
+      avatar: avatarUrl,
+      username,
+    },
+  });
+
+  return res.status(200).send();
+});
+
 router.post("/user", withAuth, async (req: IRequest, res: Response) => {
   const user = await getSessionUser(req.userId!);
 

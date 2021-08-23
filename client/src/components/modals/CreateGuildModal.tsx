@@ -54,7 +54,9 @@ export const CreateGuildModal = () => {
           </div>
         </div>
         <footer className={styles.footer}>
-          <button className={styles.formBtn}>Create</button>
+          <button disabled={!name} className={styles.formBtn}>
+            Create
+          </button>
         </footer>
       </form>
     </Modal>

@@ -1,0 +1,50 @@
+.sidebarInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3rem;
+
+  background: #292b2f;
+  color: #ffffff;
+
+  padding: 0 0.8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+  }
+
+  img {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.button {
+  padding: 0.4rem;
+  cursor: pointer;
+
+  background: none;
+  border: none;
+  border-radius: 0.3rem;
+
+  display: grid;
+  place-content: center;
+
+  &:hover {
+    background: #34373d;
+  }
+}

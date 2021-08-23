@@ -1,0 +1,118 @@
+.tab {
+  padding: 2rem;
+  padding-top: 5rem;
+
+  color: #ffffff;
+}
+
+.tabTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.accountPreview {
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  width: 100%;
+
+  background: #202225;
+}
+
+.avatarContainer {
+  padding: 0.8rem;
+  user-select: none;
+  display: flex;
+
+  img {
+    background: #18191c;
+    border: 5px solid #18191c;
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+    min-width: 5rem;
+    margin-top: -2rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+
+    span {
+      color: #b6b9bd;
+    }
+  }
+}
+
+.editProfileBtn {
+  height: max-content;
+  padding: 0.5rem 0.8rem;
+
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+
+  background: #496eee;
+  color: #ffffff;
+
+  &:hover {
+    background: #3b59c1;
+  }
+}
+
+.banner {
+  width: 100%;
+  height: 5rem;
+  background: #52585e;
+}
+
+.userData {
+  user-select: none;
+  margin: 0.8rem;
+  padding: 0.8rem;
+
+  background: #2f3136;
+  border-radius: 0.5rem;
+
+  label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #b6b9bd;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+
+    span {
+      color: #b6b9bd;
+    }
+  }
+}
+
+.group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+}
+
+.editBtn {
+  @extend .editProfileBtn;
+  padding: 0.5rem 1rem;
+
+  background: #4f545c;
+
+  &:hover {
+    background: #5d6269;
+  }
+}

@@ -2,22 +2,27 @@ import * as React from "react";
 import { BoxArrowUpIcon } from "icons/BowArrowUp";
 import aboutStyles from "components/user-popup/popup.module.scss";
 import styles from "./tabs.module.scss";
+import { User } from "types/User";
 
-export const UserInfoTab = () => {
+interface Props {
+  user: User;
+}
+
+export const UserInfoTab = ({ user }: Props) => {
   const [note, setNote] = React.useState("");
 
   return (
     <div className={styles.tab}>
-      <h3 className={aboutStyles.header}>About me</h3>
+      {user.bio ? (
+        <>
+          <h3 className={aboutStyles.header}>About me</h3>
+          <div className={aboutStyles.aboutMe}>
+            <p>{user.bio}</p>
+          </div>
+        </>
+      ) : null}
 
-      <div className={aboutStyles.aboutMe}>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit cum natus non aperiam
-          iusto expedita dolore obcaecati sequi quas consectetur!
-        </p>
-      </div>
-
-      <div style={{ marginTop: "1rem" }}>
+      <div style={{ marginTop: user.bio ? "1rem" : 0 }}>
         <h3 className={aboutStyles.header}>Note</h3>
         <textarea
           placeholder="Click to add a note"
@@ -27,11 +32,12 @@ export const UserInfoTab = () => {
         />
       </div>
 
-      <div className={aboutStyles.divider} />
+      {user.connections.length <= 0 ? null : <div className={aboutStyles.divider} />}
 
       <div className={styles.connections}>
-        <Connection name="Dev-CasperTheGhost" url="https://github.com/dev-caspertheghost" />
-        <Connection name="casper124578" url="https://twitter.com/casper124578" />
+        {user.connections.map((connection) => (
+          <Connection key={connection.id} name={connection.name} url={connection.url} />
+        ))}
       </div>
     </div>
   );

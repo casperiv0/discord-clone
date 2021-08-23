@@ -63,7 +63,12 @@
 
   transition: 200ms;
 
-  &:hover {
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:hover:enabled {
     filter: brightness(80%);
   }
 }

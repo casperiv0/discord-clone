@@ -10,4 +10,14 @@ export interface User {
   bio: string | null;
   status: string | null;
   guildId: string | null;
+
+  connections: Connection[];
+}
+
+export interface Connection {
+  id: string;
+  type: ConnectionType;
+  userId: string | null;
+  url: string;
+  name: string;
 }

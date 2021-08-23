@@ -1,0 +1,23 @@
+.settingsOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+
+  min-height: 100vh;
+  width: 100%;
+
+  background: #36393f;
+
+  display: grid;
+  grid-template-columns: 35% 55%;
+  grid-template-areas:
+    "sidebar active-tab"
+    "sidebar active-tab"
+    "sidebar active-tab"
+    "sidebar active-tab";
+
+  > div {
+    max-width: 50rem;
+  }
+}

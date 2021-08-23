@@ -86,13 +86,13 @@ export const UserProfileModal = ({ user, isOpen, onClose }: Props) => {
       </div>
 
       <div className={tabStyles.tabs}>
-        <RenderTabs activeTab={activeTab} />
+        <RenderTabs user={user} activeTab={activeTab} />
       </div>
     </Modal>
   );
 };
 
-const RenderTabs = ({ activeTab }: { activeTab: number }) => {
+const RenderTabs = ({ activeTab, user }: { activeTab: number; user: User }) => {
   switch (activeTab) {
     case Tabs.ACTIVITY: {
       return <div className={tabStyles.tab}>it&apos;s empty here.</div>;
@@ -104,7 +104,7 @@ const RenderTabs = ({ activeTab }: { activeTab: number }) => {
       return <MutualGuildsTab />;
     }
     case Tabs.USER_PROFILE: {
-      return <UserInfoTab />;
+      return <UserInfoTab user={user} />;
     }
     default: {
       return null;

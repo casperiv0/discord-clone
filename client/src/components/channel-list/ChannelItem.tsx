@@ -15,23 +15,15 @@ import { AlertModal } from "components/modals/AlertModal";
 
 interface Props {
   channel: Channel;
+  handleClone: () => Promise<void>;
+  setShowDelete: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ChannelItem = ({ channel }: Props) => {
-  return channel.type === ChannelType.GUILD_CATEGORY ? (
-    <GuildCategory channel={channel} />
-  ) : (
-    <TextChannel channel={channel} />
-  );
-};
-
-const TextChannel = ({ channel }: Props) => {
-  const [showAlert, setAlert] = React.useState(false);
-
-  const router = useRouter();
-  const href = `/${channel.guildId}/${channel.id}`;
-  const channelActive = isChannelActive(router.query.channelId as string, channel.id);
+export const ChannelItem = ({ channel }: Pick<Props, "channel">) => {
+  const [showDeleteAlert, setShowDelete] = React.useState(false);
   const { channels, setChannels, deleteChannel: delChannel } = useChannelsStore();
+
+  const deleteText = channel.type === ChannelType.GUILD_CATEGORY ? "Category" : "Channel";
 
   async function handleClone() {
     const data = await createChannel({
@@ -53,6 +45,44 @@ const TextChannel = ({ channel }: Props) => {
 
   return (
     <>
+      {channel.type === ChannelType.GUILD_CATEGORY ? (
+        <GuildCategory handleClone={handleClone} setShowDelete={setShowDelete} channel={channel} />
+      ) : (
+        <TextChannel handleClone={handleClone} setShowDelete={setShowDelete} channel={channel} />
+      )}
+
+      <AlertModal
+        isOpen={showDeleteAlert}
+        onClose={() => setShowDelete(false)}
+        title={`Delete ${deleteText}`}
+        actions={[
+          {
+            onClick: () => setShowDelete(false),
+            name: "Cancel",
+          },
+          {
+            onClick: handleDelete,
+            danger: true,
+            name: `Delete ${deleteText}`,
+          },
+        ]}
+        description={
+          <>
+            Are you sure you want to delete <strong>#{channel.name}</strong>? This cannot be undone.
+          </>
+        }
+      />
+    </>
+  );
+};
+
+const TextChannel = ({ channel, handleClone, setShowDelete }: Props) => {
+  const router = useRouter();
+  const href = `/${channel.guildId}/${channel.id}`;
+  const channelActive = isChannelActive(router.query.channelId as string, channel.id);
+
+  return (
+    <>
       <ContextMenu
         items={[
           {
@@ -71,7 +101,7 @@ const TextChannel = ({ channel }: Props) => {
           {
             name: "Delete Channel",
             danger: true,
-            onClick: () => setAlert(true),
+            onClick: () => setShowDelete(true),
           },
           true,
           {
@@ -91,33 +121,11 @@ const TextChannel = ({ channel }: Props) => {
           </Link>
         </div>
       </ContextMenu>
-
-      <AlertModal
-        isOpen={showAlert}
-        onClose={() => setAlert(false)}
-        title="Delete Channel"
-        actions={[
-          {
-            onClick: () => setAlert(false),
-            name: "Cancel",
-          },
-          {
-            onClick: handleDelete,
-            danger: true,
-            name: "Delete Channel",
-          },
-        ]}
-        description={
-          <>
-            Are you sure you want to delete <strong>#{channel.name}</strong>? This cannot be undone.
-          </>
-        }
-      />
     </>
   );
 };
 
-const GuildCategory = ({ channel }: Props) => {
+const GuildCategory = ({ channel, handleClone, setShowDelete }: Props) => {
   const [isOpen, setOpen] = React.useState(false);
 
   return (
@@ -134,9 +142,7 @@ const GuildCategory = ({ channel }: Props) => {
           true,
           {
             name: "Clone Category",
-            onClick: () => {
-              alert("Clone!");
-            },
+            onClick: handleClone,
           },
           {
             name: "Create text channel",
@@ -148,9 +154,7 @@ const GuildCategory = ({ channel }: Props) => {
           {
             name: "Delete category",
             danger: true,
-            onClick: () => {
-              alert("here");
-            },
+            onClick: () => setShowDelete(true),
           },
           true,
           {

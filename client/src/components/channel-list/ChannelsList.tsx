@@ -6,6 +6,7 @@ import styles from "./channels.module.scss";
 import { sortChannels } from "utils/channel/sortChannels";
 import { Channel } from "types/Channel";
 import { socket } from "lib/socket";
+import { SidebarInfo } from "components/sidebar-info/SidebarInfo";
 
 export const ChannelsList = () => {
   const channels = useChannelsStore((s) => s.channels);
@@ -29,6 +30,8 @@ export const ChannelsList = () => {
       {sortChannels(channels).map((channel) => (
         <ChannelItem channel={channel} key={channel.id} />
       ))}
+
+      <SidebarInfo />
     </div>
   );
 };
