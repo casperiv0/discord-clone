@@ -7,6 +7,7 @@ export function userProperties() {
     id: true,
     name: true,
     status: true,
+    statusMessage: true,
     tag: true,
     username: true,
     connections: {

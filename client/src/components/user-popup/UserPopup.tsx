@@ -73,6 +73,8 @@ export const UserPopup = ({ user, children, width = "max-content", side = "right
                   {user.username}
                   <span className={styles.tag}>#{user.tag}</span>
                 </h1>
+
+                <p>{user.statusMessage}</p>
               </div>
               <div className={styles.divider} />
 

@@ -20,3 +20,13 @@ export async function login(email: string, password: string): Promise<Error | st
     return e instanceof Error ? e : null;
   }
 }
+
+export async function updateUserProfile(data: Partial<User>): Promise<Error | User | null> {
+  try {
+    const res = await request("/auth/profile", "PATCH", data);
+
+    return res.data.user ?? null;
+  } catch (e) {
+    return e instanceof Error ? e : null;
+  }
+}

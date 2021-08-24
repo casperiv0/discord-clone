@@ -4,7 +4,7 @@
   left: 0;
 
   width: 100%;
-  height: 3rem;
+  height: 3.5rem;
 
   background: #292b2f;
   color: #ffffff;
@@ -23,13 +23,17 @@
   p {
     font-size: 1rem;
     font-weight: 600;
-    margin-left: 0.5rem;
+  }
+  span {
+    font-size: 0.9rem;
   }
 
   img {
     border-radius: 50%;
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
   }
 }
 
@@ -46,5 +50,62 @@
 
   &:hover {
     background: #34373d;
+  }
+}
+
+.statusMenu {
+  position: absolute;
+  bottom: 4rem;
+  left: 0.3rem;
+
+  padding: 0.3rem;
+
+  border-radius: 0.3rem;
+  background: #18191c;
+  transform-origin: bottom center;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 95%;
+  animation: openMenu 200ms;
+}
+
+.menuItem {
+  width: 100%;
+
+  border-radius: 0.3rem;
+  background: none;
+  border: none;
+
+  font-weight: 600;
+  font-size: 1rem;
+  color: #b6b9bd;
+  text-align: start;
+
+  padding: 0.5rem;
+  margin: 0.1rem;
+
+  cursor: pointer;
+
+  &:hover {
+    background: #3b59c1;
+  }
+}
+
+.menuDivider {
+  width: 100%;
+  height: 1.5px;
+  background: #262729;
+
+  margin: 0.3rem 0;
+}
+
+@keyframes openMenu {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
   }
 }

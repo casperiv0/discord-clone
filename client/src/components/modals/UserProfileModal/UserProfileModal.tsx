@@ -55,7 +55,7 @@ export const UserProfileModal = ({ user, isOpen, onClose }: Props) => {
           {user.username}#<span className={styles.tag}>{user.tag}</span>
         </h1>
 
-        <p className={styles.status}>{user.status}</p>
+        <p className={styles.status}>{user.statusMessage}</p>
       </div>
 
       <div className={tabStyles.tabsContainer}>

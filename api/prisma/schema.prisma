@@ -12,22 +12,23 @@ generator client {
 }
 
 model User {
-  id          String       @id @default(uuid())
-  email       String       @unique
-  avatar      String?      @unique
-  username    String
-  password    String
-  createdAt   DateTime     @default(now())
-  name        String
-  tag         Int
-  bio         String?
-  status      String?
-  connections Connection[]
-  messages    Message[]
-  guilds      Guild[]
-  guild       Guild?       @relation("members", fields: [guildId], references: [id], onDelete: Cascade)
-  guildId     String?
-  invites     Invite[]
+  id            String       @id @default(uuid())
+  email         String       @unique
+  avatar        String?      @unique
+  username      String
+  password      String
+  createdAt     DateTime     @default(now())
+  name          String
+  tag           Int
+  bio           String?
+  status        StatusType   @default(ONLINE)
+  statusMessage String?
+  connections   Connection[]
+  messages      Message[]
+  guilds        Guild[]
+  guild         Guild?       @relation("members", fields: [guildId], references: [id], onDelete: Cascade)
+  guildId       String?
+  invites       Invite[]
 }
 
 model Guild {
@@ -98,4 +99,11 @@ enum ConnectionType {
   GITHUB
   TWITTER
   WEBSITE
+}
+
+enum StatusType {
+  ONLINE
+  IDLE
+  DND
+  OFFLINE
 }

@@ -97,6 +97,30 @@ router.post("/register", async (req: Request, res: Response) => {
   return res.json({ userId: createdUser.id });
 });
 
+router.patch("/profile", withAuth, async (req: IRequest, res: Response) => {
+  try {
+    const { avatar, bio, status, statusMessage } = req.body;
+
+    const user = await getSessionUser(req.userId!);
+
+    await prisma.user.update({
+      where: {
+        id: req.userId!,
+      },
+      data: {
+        avatar: avatar || user?.avatar,
+        bio: bio || user?.bio,
+        status: status || user?.status,
+        statusMessage: statusMessage || user?.statusMessage,
+      },
+    });
+
+    return res.status(200).send();
+  } catch (err) {
+    return res.status(500).send();
+  }
+});
+
 router.put("/user", withAuth, async (req: IRequest, res: Response) => {
   const { avatarUrl, username } = req.body;
 

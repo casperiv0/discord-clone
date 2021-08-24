@@ -8,7 +8,8 @@ export interface User {
   name: string;
   tag: number;
   bio: string | null;
-  status: string | null;
+  status: StatusType;
+  statusMessage: string | null;
   guildId: string | null;
 
   connections: Connection[];
@@ -20,4 +21,11 @@ export interface Connection {
   userId: string | null;
   url: string;
   name: string;
+}
+
+export enum StatusType {
+  ONLINE = "ONLINE",
+  IDLE = "IDLE",
+  DND = "DND",
+  OFFLINE = "OFFLINE",
 }
