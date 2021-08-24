@@ -38,7 +38,7 @@ export async function createChannel({
   }
 }
 
-export async function deleteChannel(id: string): Promise<Channel | null> {
+export async function deleteChannel(id: string): Promise<null> {
   try {
     await request(`/channels/${id}`, "DELETE");
 

@@ -48,17 +48,12 @@ export default function Channel({ channel, channels, guilds, messages, guild, us
   }, [setMessages, messages]);
 
   React.useEffect(() => {
-    if (channel) {
-      setChannel(channel);
-    }
-
+    setChannel(channel);
     setChannels(channels);
   }, [channel, guild, channels, setChannel, setChannels]);
 
   React.useEffect(() => {
-    if (guild) {
-      setGuild(guild);
-    }
+    setGuild(guild);
 
     if (guilds) {
       setGuilds(guilds);
@@ -72,9 +67,7 @@ export default function Channel({ channel, channels, guilds, messages, guild, us
   }, [user, router]);
 
   React.useEffect(() => {
-    if (user) {
-      setUser(user);
-    }
+    setUser(user ?? null);
   }, [setUser, user]);
 
   return (

@@ -5,9 +5,9 @@ export interface ChannelsStore {
   channels: Channel[];
   currentChannel: Channel | null;
 
-  setCurrentChannel: (channel: Channel) => void;
+  setCurrentChannel: (channel: Channel | null) => void;
   setChannels: (channels: Channel[]) => void;
-  deleteChannel: (channel: Channel) => void;
+  deleteChannel: (channel: Channel | Pick<Channel, "id">) => void;
 }
 
 export const useChannelsStore = create<ChannelsStore>((set, get) => ({

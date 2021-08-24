@@ -3,4 +3,5 @@ export enum Modals {
   CREATE_CATEGORY,
   CREATE_GUILD,
   SET_STATUS,
+  INVITE,
 }

@@ -12,6 +12,7 @@ import { ContextMenu } from "components/context-menu/ContextMenu";
 import { useChannelsStore } from "lib/state/channelsState";
 import { createChannel, deleteChannel } from "lib/actions/channel";
 import { AlertModal } from "components/modals/AlertModal";
+import { Events, socket } from "lib/socket";
 
 interface Props {
   channel: Channel;
@@ -35,12 +36,15 @@ export const ChannelItem = ({ channel }: Pick<Props, "channel">) => {
 
     if (data) {
       setChannels([...channels, data]);
+      socket.emit(Events.CHANNEL_CREATE, { guildId: channel.guildId, channelId: channel.id });
     }
   }
 
   async function handleDelete() {
     delChannel(channel);
     await deleteChannel(channel.id);
+
+    socket.emit(Events.CHANNEL_DELETE, { guildId: channel.guildId, channelId: channel.id });
   }
 
   return (

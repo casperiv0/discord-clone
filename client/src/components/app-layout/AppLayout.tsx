@@ -7,6 +7,7 @@ import { CreateGuildModal } from "components/modals/CreateGuildModal";
 import { SettingsOverlay } from "components/settings/SettingsOverlay";
 import { SetStatusModal } from "components/modals/SetStatusModal";
 import styles from "./layout.module.scss";
+import { InviteModal } from "components/modals/InviteModal";
 
 export const AppLayout = () => {
   return (
@@ -19,6 +20,7 @@ export const AppLayout = () => {
       <CreateGuildModal />
       <SettingsOverlay />
       <SetStatusModal />
+      <InviteModal />
     </div>
   );
 };

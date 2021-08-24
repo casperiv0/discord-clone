@@ -44,7 +44,12 @@ export const GuildHeader = () => {
         <div ref={ref} className={styles.guildDropdown}>
           <button className={styles.dropdownItem}>Server Boost</button>
           <div className={styles.dropdownDivider} />
-          <button className={classes(styles.dropdownItem, styles.invite)}>Invite People</button>
+          <button
+            onClick={() => handleOpen(Modals.INVITE)}
+            className={classes(styles.dropdownItem, styles.invite)}
+          >
+            Invite People
+          </button>
           <button className={styles.dropdownItem}>Server Settings</button>
           <button className={styles.dropdownItem}>Server Insights</button>
           <button onClick={() => handleOpen(Modals.CREATE_CHANNEL)} className={styles.dropdownItem}>

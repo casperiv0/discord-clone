@@ -5,7 +5,7 @@ export interface GuildsStore {
   guilds: Guild[];
   currentGuild: Guild | null;
 
-  setCurrentGuild: (guild: Guild) => void;
+  setCurrentGuild: (guild: Guild | null) => void;
   setGuilds: (guilds: Guild[]) => void;
 }
 

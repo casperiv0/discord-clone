@@ -9,6 +9,7 @@
 .formGroup {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   label {
     color: #ffffff;
@@ -71,4 +72,15 @@
   &:hover:enabled {
     filter: brightness(80%);
   }
+}
+
+.inputBtn {
+  @extend .formBtn;
+
+  padding: 0.3rem 0.8rem;
+
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
