@@ -34,6 +34,8 @@ export default function Channel({ channel, channels, guilds, messages, guild, us
   const setGuilds = useGuildStore((s) => s.setGuilds);
   const setUser = useAuthStore((s) => s.setUser);
 
+  console.log(guild);
+
   const router = useRouter();
 
   React.useEffect(() => {
