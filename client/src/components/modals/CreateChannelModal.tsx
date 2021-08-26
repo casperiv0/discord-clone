@@ -8,6 +8,7 @@ import { createChannel } from "lib/actions/channel";
 import { ChannelType } from "types/Channel";
 import { socket } from "lib/socket";
 import styles from "styles/form.module.scss";
+import { useRouter } from "next/router";
 
 interface Props {
   parentId: string | null;
@@ -19,6 +20,7 @@ export const CreateChannelModal = ({ isOpen, parentId, onClose }: Props) => {
   const [name, setName] = React.useState("");
   const channelStore = useChannelsStore();
   const currentGuild = useGuildStore((s) => s.currentGuild);
+  const router = useRouter();
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -37,6 +39,8 @@ export const CreateChannelModal = ({ isOpen, parentId, onClose }: Props) => {
 
       setName("");
       onClose();
+
+      router.push(`/${currentGuild.id}/${data.id}`);
     }
   }
 

@@ -84,12 +84,18 @@
 .username {
   h1 {
     font-weight: 600;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: #ffffff;
   }
 
   .tag {
     color: #96989b;
+  }
+
+  p {
+    color: #96989b;
+    margin-top: 0.5rem;
+    font-size: 1rem;
   }
 }
 
@@ -102,11 +108,17 @@
   user-select: none;
 }
 
-.aboutMe p {
-  color: #ffffff;
-  margin: 0.5rem 0;
-  font-size: 1rem;
-  font-weight: normal;
+.aboutMe {
+  li {
+    margin-left: 1.25rem;
+  }
+
+  p {
+    color: #ffffff;
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    font-weight: normal;
+  }
 }
 
 .divider {
@@ -133,7 +145,6 @@
 
   resize: none;
   max-height: 3rem;
-
 
   &:focus {
     background: #202225;

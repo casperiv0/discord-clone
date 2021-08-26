@@ -1,4 +1,5 @@
 import * as React from "react";
+import Markdown from "react-markdown";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { UserProfileModal } from "components/modals/UserProfileModal";
 import { User } from "types/User";
@@ -81,7 +82,9 @@ export const UserPopup = ({ user, children, width = "max-content", side = "right
               {user.bio ? (
                 <div className={styles.aboutMe}>
                   <h3 className={styles.header}>About Me</h3>
-                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero, alias?</p>
+                  <p>
+                    <Markdown linkTarget="_blank">{user.bio}</Markdown>
+                  </p>
                 </div>
               ) : null}
 
