@@ -25,10 +25,9 @@
     margin-right: 0.5rem;
   }
 
-  & h1 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #96989b;
+  > div {
+    display: flex;
+    flex-direction: column;
   }
 
   &:hover {
@@ -37,5 +36,18 @@
     & h1 {
       color: #ffffff;
     }
+  }
+}
+
+.usernameArea {
+  h1 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #96989b;
+  }
+
+  span {
+    color: #96989b;
+    font-size: 0.8rem;
   }
 }

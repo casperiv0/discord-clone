@@ -82,9 +82,9 @@ export const UserPopup = ({ user, children, width = "max-content", side = "right
               {user.bio ? (
                 <div className={styles.aboutMe}>
                   <h3 className={styles.header}>About Me</h3>
-                  <p>
+                  <span>
                     <Markdown linkTarget="_blank">{user.bio}</Markdown>
-                  </p>
+                  </span>
                 </div>
               ) : null}
 

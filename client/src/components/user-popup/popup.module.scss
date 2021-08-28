@@ -113,7 +113,8 @@
     margin-left: 1.25rem;
   }
 
-  p {
+  > span {
+    display: inline-block;
     color: #ffffff;
     margin: 0.5rem 0;
     font-size: 0.95rem;

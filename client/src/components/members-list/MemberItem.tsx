@@ -10,7 +10,10 @@ export const MemberItem = ({ user }: Props) => {
     <div className={styles.memberItem}>
       <img src={user.avatar!} />
 
-      <h1>{user.username}</h1>
+      <div className={styles.usernameArea}>
+        <h1>{user.username}</h1>
+        <span>{user.statusMessage}</span>
+      </div>
     </div>
   );
 };

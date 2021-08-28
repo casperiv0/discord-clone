@@ -11,7 +11,20 @@ const router = Router();
 router.get("/@me", withAuth, async (req: IRequest, res: Response) => {
   const guilds = await prisma.guild.findMany({
     where: {
-      ownerId: req.userId!,
+      OR: [
+        {
+          ownerId: {
+            equals: req.userId,
+          },
+        },
+        {
+          members: {
+            some: {
+              id: req.userId!,
+            },
+          },
+        },
+      ],
     },
     include: {
       members: {

@@ -4,8 +4,11 @@ import form from "styles/form.module.scss";
 import popup from "components/user-popup/popup.module.scss";
 import { classes } from "utils/classes";
 import { updateUserProfile } from "lib/actions/auth";
+import { useAuthStore } from "lib/state/authState";
 
 export const UserProfileTab = () => {
+  const user = useAuthStore((s) => s.user);
+
   const [about, setAbout] = React.useState("");
 
   async function onSubmit(e: React.FormEvent) {
@@ -15,6 +18,11 @@ export const UserProfileTab = () => {
       bio: about,
     });
   }
+
+  React.useEffect(() => {
+    if (!user?.bio) return;
+    setAbout(user.bio);
+  }, [user?.bio]);
 
   return (
     <div className={styles.tab}>

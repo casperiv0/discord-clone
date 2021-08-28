@@ -108,10 +108,10 @@ router.patch("/profile", withAuth, async (req: IRequest, res: Response) => {
         id: req.userId!,
       },
       data: {
-        avatar: avatar || user?.avatar,
-        bio: bio || user?.bio,
-        status: status || user?.status,
-        statusMessage: statusMessage || user?.statusMessage,
+        avatar: typeof avatar === "undefined" ? user?.avatar : avatar,
+        bio: typeof bio === "undefined" ? user?.bio : bio,
+        status: typeof status === "undefined" ? user?.status : status,
+        statusMessage,
       },
     });
 

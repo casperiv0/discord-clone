@@ -45,20 +45,22 @@ export const ContextMenu = ({ items, children }: Props) => {
 
       {open ? (
         <div ref={ref} style={{ top: coords.y, left: coords.x }} className={styles.contextMenu}>
-          {items.map((item) =>
-            typeof item === "boolean" ? (
+          {items.map((item) => {
+            const { danger = false, ...rest } = typeof item === "object" ? item : {};
+
+            return typeof item === "boolean" ? (
               <div key={v4()} className={styles.contextDivider} />
             ) : (
               <button
-                {...item}
+                {...rest}
                 key={v4()}
                 onClick={handleClick.bind(null, item)}
-                className={classes(styles.contextItem, item.danger && styles.danger)}
+                className={classes(styles.contextItem, danger && styles.danger)}
               >
                 {item.name}
               </button>
-            ),
-          )}
+            );
+          })}
         </div>
       ) : null}
     </>

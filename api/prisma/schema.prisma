@@ -14,7 +14,7 @@ generator client {
 model User {
   id            String       @id @default(uuid())
   email         String       @unique
-  avatar        String?      @unique
+  avatar        String?      @unique @default("https://cdn.discordapp.com/embed/avatars/0.png")
   username      String
   password      String
   createdAt     DateTime     @default(now())

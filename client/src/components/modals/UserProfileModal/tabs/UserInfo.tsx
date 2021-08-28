@@ -3,6 +3,7 @@ import { BoxArrowUpIcon } from "icons/BowArrowUp";
 import aboutStyles from "components/user-popup/popup.module.scss";
 import styles from "./tabs.module.scss";
 import { User } from "types/User";
+import ReactMarkdown from "react-markdown";
 
 interface Props {
   user: User;
@@ -17,7 +18,9 @@ export const UserInfoTab = ({ user }: Props) => {
         <>
           <h3 className={aboutStyles.header}>About me</h3>
           <div className={aboutStyles.aboutMe}>
-            <p>{user.bio}</p>
+            <span>
+              <ReactMarkdown linkTarget="_blank">{user.bio}</ReactMarkdown>
+            </span>
           </div>
         </>
       ) : null}
