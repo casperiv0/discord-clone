@@ -41,12 +41,12 @@ router.get("/:code", withAuth, async (req: IRequest, res: Response) => {
   return res.json({ invite });
 });
 
-router.post("/:code", withAuth, async (req: IRequest, res: Response) => {
-  const code = req.params.code as string;
+router.post("/:id", withAuth, async (req: IRequest, res: Response) => {
+  const id = req.params.id as string;
 
   const invite = await prisma.invite.findUnique({
     where: {
-      code,
+      id,
     },
   });
 

@@ -15,7 +15,7 @@ export default function InvitePage({ invite }: Props) {
 
   async function onAccept() {
     if (!invite) return;
-    const data = await acceptGuildInvite(invite.code);
+    const data = await acceptGuildInvite(invite.id);
 
     if (data) {
       router.push(`/${invite.guildId}/0`);
