@@ -72,8 +72,8 @@ router.post("/", withAuth, async (req: IRequest, res: Response) => {
 
   const guild = await prisma.guild.create({
     data: {
-      name: req.body.name,
       ownerId: req.userId!,
+      name: req.body.name,
       members: {
         connect: {
           id: req.userId,

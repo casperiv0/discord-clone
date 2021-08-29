@@ -14,7 +14,7 @@ generator client {
 model User {
   id            String       @id @default(uuid())
   email         String       @unique
-  avatar        String?      @unique @default("https://cdn.discordapp.com/embed/avatars/0.png")
+  avatar        String?      @default("https://cdn.discordapp.com/embed/avatars/0.png")
   username      String
   password      String
   createdAt     DateTime     @default(now())
@@ -25,8 +25,7 @@ model User {
   statusMessage String?
   connections   Connection[]
   messages      Message[]
-  guilds        Guild[]
-  guild         Guild?       @relation("members", fields: [guildId], references: [id], onDelete: Cascade)
+  guilds        Guild[]      @relation("members")
   guildId       String?
   invites       Invite[]
 }
@@ -38,7 +37,6 @@ model Guild {
   channels  Channel[]
   messages  Message[]
   members   User[]    @relation("members")
-  owner     User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId   String
   createdAt DateTime  @default(now())
   invites   Invite[]

@@ -16,5 +16,18 @@ export const useChannelsStore = create<ChannelsStore>((set, get) => ({
 
   setCurrentChannel: (channel) => set({ currentChannel: channel }),
   setChannels: (channels) => set({ channels }),
-  deleteChannel: (channel) => set({ channels: get().channels.filter((v) => v.id !== channel.id) }),
+  deleteChannel: (channel) => {
+    const channels = get().channels;
+    const newChannels = [...channels]
+      .map((ch) => {
+        if (ch.parentId === channel.id) {
+          ch.parentId = null;
+        }
+
+        return ch;
+      })
+      .filter((ch) => ch.id !== channel.id);
+
+    set({ channels: newChannels });
+  },
 }));

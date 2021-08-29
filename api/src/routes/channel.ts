@@ -39,15 +39,26 @@ router.post("/:guildId", withAuth, async (req: IRequest, res: Response) => {
 });
 
 router.delete("/:id", withAuth, async (req: IRequest, res: Response) => {
+  const channelId = req.params.id as string;
+
   await prisma.message.deleteMany({
     where: {
-      channelId: req.params.id,
+      channelId,
     },
   });
 
   await prisma.channel.delete({
     where: {
-      id: req.params.id,
+      id: channelId,
+    },
+  });
+
+  await prisma.channel.updateMany({
+    where: {
+      parentId: channelId,
+    },
+    data: {
+      parentId: null,
     },
   });
 
