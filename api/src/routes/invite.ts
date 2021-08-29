@@ -33,6 +33,9 @@ router.get("/:code", withAuth, async (req: IRequest, res: Response) => {
     where: {
       code,
     },
+    include: {
+      guild: true,
+    },
   });
 
   return res.json({ invite });
