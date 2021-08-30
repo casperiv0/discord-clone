@@ -5,6 +5,7 @@ import { SettingsTabs } from "../SettingsOverlay";
 // @ts-expect-error ignore.
 import { header } from "components/user-popup/popup.module.scss";
 import styles from "./tabs.module.scss";
+import { DeleteAccountModal } from "../Modals/DeleteAccount";
 
 enum AccountModals {
   EDIT_USERNAME,
@@ -14,7 +15,7 @@ enum AccountModals {
 }
 
 export const MyAccountTab = () => {
-  const [, setActiveModal] = React.useState<AccountModals | null>(null);
+  const [activeModal, setActiveModal] = React.useState<AccountModals | null>(null);
   const setActiveTab = useSettingsStore((s) => s.setActiveTab);
   const user = useAuthStore((s) => s.user);
 
@@ -79,9 +80,19 @@ export const MyAccountTab = () => {
           <h3 className={header}>account removal</h3>
           <p style={{ margin: "0.5rem 0", color: "#b6b9bd" }}>This action cannot be undone.</p>
 
-          <button className={styles.deleteAccountBtn}>Delete Account</button>
+          <button
+            onClick={() => setActiveModal(AccountModals.DELETE_ACCOUNT)}
+            className={styles.deleteAccountBtn}
+          >
+            Delete Account
+          </button>
         </div>
       </div>
+
+      <DeleteAccountModal
+        open={activeModal === AccountModals.DELETE_ACCOUNT}
+        onClose={() => setActiveModal(null)}
+      />
     </>
   );
 };

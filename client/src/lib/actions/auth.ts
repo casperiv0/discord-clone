@@ -30,3 +30,13 @@ export async function updateUserProfile(data: Partial<User>): Promise<Error | Us
     return e instanceof Error ? e : null;
   }
 }
+
+export async function deleteAccount(password: string): Promise<boolean> {
+  try {
+    await request("/auth/user", "DELETE", { password });
+
+    return true;
+  } catch {
+    return false;
+  }
+}
