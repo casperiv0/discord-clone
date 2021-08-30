@@ -121,7 +121,7 @@ router.patch("/profile", withAuth, async (req: IRequest, res: Response) => {
   }
 });
 
-router.put("/user", withAuth, async (req: IRequest, res: Response) => {
+router.patch("/user", withAuth, async (req: IRequest, res: Response) => {
   const { avatarUrl, username } = req.body;
 
   await prisma.user.update({

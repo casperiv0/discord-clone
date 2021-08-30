@@ -38,6 +38,9 @@ export const SettingsSidebar = ({ activeTab, setActiveTab }: Props) => {
         >
           Connections
         </button>
+
+        <div className={styles.sidebarDivider} />
+        <button className={classes(styles.sidebarItem, styles.danger)}>Log Out</button>
       </div>
     </aside>
   );

@@ -6,6 +6,7 @@ import { SettingsTabs } from "../SettingsOverlay";
 import { header } from "components/user-popup/popup.module.scss";
 import styles from "./tabs.module.scss";
 import { DeleteAccountModal } from "../Modals/DeleteAccount";
+import { EditEmailOrUsernameModal } from "../Modals/EditUsernameOrEmail";
 
 enum AccountModals {
   EDIT_USERNAME,
@@ -92,6 +93,12 @@ export const MyAccountTab = () => {
       <DeleteAccountModal
         open={activeModal === AccountModals.DELETE_ACCOUNT}
         onClose={() => setActiveModal(null)}
+      />
+      <EditEmailOrUsernameModal
+        open={[AccountModals.EDIT_EMAIL, AccountModals.EDIT_USERNAME].includes(activeModal!)}
+        onClose={() => setActiveModal(null)}
+        type={activeModal === AccountModals.EDIT_EMAIL ? "email" : "username"}
+        emailOrUsername={activeModal === AccountModals.EDIT_EMAIL ? user.email : user.username}
       />
     </>
   );

@@ -52,4 +52,18 @@
     background: #34363c;
     color: #ffffff;
   }
+
+  &.danger {
+    color: #ed3844;
+  }
+}
+
+.sidebarDivider {
+  background: #3b3d42;
+  height: 1.5px;
+  border-radius: 0.5rem;
+
+  align-self: center;
+  width: 90%;
+  margin: 0.5rem 0;
 }
